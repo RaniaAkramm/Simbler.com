@@ -1,2416 +1,1911 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Simbler.com | Premium Domain Portfolio</title>
-
-<meta name="description" content="Simbler.com - Premium brandable domains evaluated for brandability, memorability, pronunciation and commercial potential.">
+<title>Simbler | Domain Intelligence & Premium Domains</title>
+<meta name="description" content="Simbler analyzes domain pronunciation, C/V structure and showcases premium domains for sale.">
 
 <script src="https://cdn.tailwindcss.com"></script>
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-<script>
-tailwind.config = {
-    theme: {
-        extend: {
-            colors: {
-                brand: {
-                    400: "#34d399",
-                    500: "#10b981",
-                    600: "#059669"
-                }
-            }
-        }
-    }
-}
-</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+* {
+    box-sizing: border-box;
+}
 
 html {
     scroll-behavior: smooth;
 }
 
 body {
-    background:#020617;
-    color:#f8fafc;
-    font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-}
-
-.grid-bg {
-    background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-    background-size:42px 42px;
+    font-family: "Inter", sans-serif;
+    background:
+        radial-gradient(circle at 20% 0%, rgba(16,185,129,.10), transparent 28%),
+        radial-gradient(circle at 85% 15%, rgba(20,184,166,.08), transparent 25%),
+        #050816;
+    color: #f8fafc;
 }
 
 .glass {
-    background:rgba(2,6,23,.84);
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
+    background: rgba(15, 23, 42, .72);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
 }
 
-.domain-card {
-    transition:all .3s ease;
+.glow {
+    box-shadow:
+        0 0 0 1px rgba(16,185,129,.08),
+        0 25px 70px rgba(0,0,0,.35);
 }
 
-.domain-card:hover {
-    transform:translateY(-4px);
-    border-color:rgba(52,211,153,.35);
-    box-shadow:0 25px 70px rgba(0,0,0,.4);
+.logo-mark {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #10b981, #14b8a6);
+    color: #02130e;
+    font-weight: 900;
+    box-shadow: 0 8px 30px rgba(16,185,129,.25);
 }
 
-.logo-box {
-    background:
-        radial-gradient(circle at 30% 20%,rgba(16,185,129,.25),transparent 45%),
-        #07111f;
+.hero-orb {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 999px;
+    background: rgba(16,185,129,.10);
+    filter: blur(90px);
+    pointer-events: none;
 }
 
-.metric-bar {
-    height:6px;
-    background:#1e293b;
-    border-radius:999px;
-    overflow:hidden;
+.cv-letter {
+    min-width: 44px;
+    height: 68px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid;
+    transition: .2s;
 }
 
-.metric-fill {
-    height:100%;
-    background:linear-gradient(90deg,#059669,#34d399);
-    border-radius:999px;
+.cv-letter:hover {
+    transform: translateY(-3px);
 }
 
-.strength {
-    display:flex;
-    gap:10px;
-    align-items:flex-start;
+.cv-char {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1;
 }
 
-.strength-icon {
-    width:26px;
-    height:26px;
-    flex:none;
-    border-radius:8px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:rgba(16,185,129,.1);
-    color:#34d399;
-    font-size:11px;
+.cv-type {
+    font-size: 11px;
+    font-weight: 800;
+    margin-top: 8px;
+    letter-spacing: .08em;
 }
 
 .cv-c {
-    color:#60a5fa;
+    background: rgba(59,130,246,.12);
+    border-color: rgba(59,130,246,.35);
+}
+
+.cv-c .cv-type {
+    color: #60a5fa;
 }
 
 .cv-v {
-    color:#34d399;
+    background: rgba(244,63,94,.12);
+    border-color: rgba(244,63,94,.35);
 }
 
-.badge {
-    border:1px solid #1e293b;
-    background:#0b1220;
+.cv-v .cv-type {
+    color: #fb7185;
 }
 
-.score-box {
-    background:linear-gradient(
-        135deg,
-        rgba(16,185,129,.10),
-        rgba(2,6,23,.2)
-    );
+.score-ring {
+    width: 108px;
+    height: 108px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle, #08111f 55%, transparent 56%),
+        conic-gradient(#10b981 var(--score), #1e293b 0);
+}
+
+.domain-card {
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.domain-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(16,185,129,.35);
+    box-shadow: 0 25px 60px rgba(0,0,0,.25);
+}
+
+.domain-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(16,185,129,.18), rgba(20,184,166,.08));
+    border: 1px solid rgba(16,185,129,.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #34d399;
+    font-weight: 900;
 }
 
 .buy-btn {
-    transition:all .2s ease;
+    transition: .2s;
 }
 
 .buy-btn:hover {
-    transform:translateY(-2px);
-    box-shadow:0 12px 30px rgba(16,185,129,.22);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 30px rgba(16,185,129,.20);
 }
 
-.fade {
-    animation:fade .5s ease both;
+.lang-ar {
+    display: none;
 }
 
-@keyframes fade {
-    from {
-        opacity:0;
-        transform:translateY(12px);
+body.ar .lang-en {
+    display: none !important;
+}
+
+body.ar .lang-ar {
+    display: block !important;
+}
+
+body.ar .inline-lang-ar {
+    display: inline !important;
+}
+
+body.ar .inline-lang-en {
+    display: none !important;
+}
+
+.inline-lang-ar {
+    display: none;
+}
+
+[dir="rtl"] .text-left {
+    text-align: right;
+}
+
+[dir="rtl"] .domain-card {
+    direction: rtl;
+}
+
+[dir="rtl"] .modal-content {
+    direction: rtl;
+}
+
+@media (max-width: 640px) {
+    .hero-title {
+        font-size: 2.4rem;
+        line-height: 1.1;
     }
-    to {
-        opacity:1;
-        transform:none;
+
+    .cv-letter {
+        min-width: 36px;
+        height: 60px;
+    }
+
+    .cv-char {
+        font-size: 17px;
     }
 }
-
-.modal-bg {
-    background:rgba(2,6,23,.92);
-    backdrop-filter:blur(12px);
-}
-
-::-webkit-scrollbar {
-    width:8px;
-}
-
-::-webkit-scrollbar-track {
-    background:#020617;
-}
-
-::-webkit-scrollbar-thumb {
-    background:#1e293b;
-    border-radius:20px;
-}
-
 </style>
 </head>
 
 <body>
 
+<!-- ================= HEADER ================= -->
 
-<!-- =====================================================
-HEADER
-===================================================== -->
+<header class="sticky top-0 z-50 border-b border-slate-800/80 glass">
 
-<header class="sticky top-0 z-50 border-b border-slate-800 glass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[72px] flex items-center justify-between">
+        <div class="h-[72px] flex items-center justify-between">
 
-<a href="#" class="flex items-center gap-3">
+            <a href="#" class="flex items-center gap-3">
 
-<div class="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/10">
+                <div class="logo-mark">
+                    S
+                </div>
 
-<i class="fa-solid fa-sparkles text-slate-950"></i>
+                <div>
+                    <div class="text-xl font-extrabold tracking-tight">
+                        Simbler
+                    </div>
 
-</div>
+                    <div class="text-[10px] text-slate-500 tracking-[.18em] uppercase">
+                        Domain Intelligence
+                    </div>
+                </div>
 
-<div>
+            </a>
 
-<div class="text-lg font-black">
-Simbler<span class="text-emerald-400">.com</span>
-</div>
+            <nav class="hidden md:flex items-center gap-7 text-sm text-slate-400">
 
-<div class="hidden sm:block text-[10px] uppercase tracking-[.18em] text-slate-500">
-Premium Domain Portfolio
-</div>
+                <a href="#analyzer" class="hover:text-emerald-400 transition">
+                    <span class="lang-en">Analyzer</span>
+                    <span class="lang-ar">المحلل</span>
+                </a>
 
-</div>
+                <a href="#domains" class="hover:text-emerald-400 transition">
+                    <span class="lang-en">Domains</span>
+                    <span class="lang-ar">الدومينات</span>
+                </a>
 
-</a>
+                <a href="#about" class="hover:text-emerald-400 transition">
+                    <span class="lang-en">Why Simbler</span>
+                    <span class="lang-ar">لماذا Simbler</span>
+                </a>
 
+            </nav>
 
-<nav class="hidden md:flex items-center gap-7 text-sm text-slate-400">
+            <button
+                onclick="toggleLanguage()"
+                class="flex items-center gap-2 px-3 py-2 rounded-xl border border-slate-700 bg-slate-900/80 hover:border-emerald-500/40 transition text-sm">
 
-<a href="#domains" class="hover:text-white transition">
-Domains
-</a>
+                <span>🌐</span>
 
-<a href="#evaluation" class="hover:text-white transition">
-Evaluation
-</a>
+                <span id="languageButton">
+                    العربية
+                </span>
 
-<a href="#analyzer" class="hover:text-white transition">
-Analyzer
-</a>
+            </button>
 
-<a href="#contact" class="hover:text-white transition">
-Contact
-</a>
+        </div>
 
-</nav>
-
-
-<a
-href="https://www.spaceship.com/domains/"
-target="_blank"
-class="hidden sm:flex bg-white text-slate-950 px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-emerald-300 transition">
-
-<i class="fa-solid fa-cart-shopping mr-2"></i>
-
-Spaceship
-
-</a>
-
-</div>
+    </div>
 
 </header>
 
 
+<!-- ================= HERO ================= -->
 
-<!-- =====================================================
-HERO
-===================================================== -->
+<section class="relative overflow-hidden">
 
-<section class="grid-bg border-b border-slate-800 relative overflow-hidden">
+    <div class="hero-orb -top-40 -left-40"></div>
+    <div class="hero-orb top-20 -right-40"></div>
 
-<div class="absolute w-[550px] h-[550px] bg-emerald-500/10 blur-[130px] rounded-full left-1/2 -translate-x-1/2 -top-96"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 relative">
+        <div class="pt-16 pb-12 md:pt-24 md:pb-16 text-center">
 
-<div class="max-w-4xl mx-auto text-center fade">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-xs font-semibold mb-6">
 
-<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-300 text-xs font-bold mb-7">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
 
-<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="lang-en">
+                    Domain Quality Intelligence
+                </span>
 
-Premium Digital Assets
+                <span class="lang-ar">
+                    تحليل جودة الدومينات
+                </span>
 
-</div>
+            </div>
 
+            <h1 class="hero-title text-5xl md:text-7xl font-extrabold tracking-tight max-w-5xl mx-auto">
 
-<h1 class="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.03]">
+                <span class="lang-en">
+                    Understand a Domain<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">
+                        Before You Buy It
+                    </span>
+                </span>
 
-Simbler<span class="text-emerald-400">.com</span>
+                <span class="lang-ar">
+                    افهم قوة الدومين<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">
+                        قبل أن تشتريه
+                    </span>
+                </span>
 
-<span class="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-300 mt-3">
+            </h1>
 
-Premium Domain Portfolio
+            <p class="max-w-2xl mx-auto mt-6 text-slate-400 text-base md:text-lg leading-8">
 
-</span>
+                <span class="lang-en">
+                    Analyze pronunciation, consonant-vowel structure and brand potential,
+                    then discover premium domains selected for modern businesses.
+                </span>
 
-</h1>
+                <span class="lang-ar">
+                    حلل سهولة النطق وتركيب الحروف الساكنة والمتحركة وقوة الاسم،
+                    ثم اكتشف دومينات مميزة مناسبة للمشاريع الحديثة.
+                </span>
 
+            </p>
 
-<p class="max-w-2xl mx-auto text-lg text-slate-400 leading-relaxed mt-7">
+            <div class="flex justify-center gap-3 mt-8">
 
-A curated collection of premium brandable,
-technology, AI, robotics, biotech and fintech domains.
-Every name is evaluated for brand strength,
-memorability and commercial positioning.
+                <a href="#analyzer"
+                   class="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold transition">
 
-</p>
+                    <span class="lang-en">Analyze a Domain</span>
+                    <span class="lang-ar">حلل دومين</span>
 
+                </a>
 
-<div class="flex flex-col sm:flex-row justify-center gap-3 mt-9">
+                <a href="#domains"
+                   class="px-6 py-3 rounded-xl border border-slate-700 bg-slate-900/60 hover:border-slate-500 transition font-semibold">
 
-<a
-href="#domains"
-class="bg-emerald-500 text-slate-950 font-black px-7 py-3.5 rounded-xl hover:bg-emerald-400 transition">
+                    <span class="lang-en">Explore Domains</span>
+                    <span class="lang-ar">استعرض الدومينات</span>
 
-Explore Domains
+                </a>
 
-</a>
-
-
-<a
-href="#analyzer"
-class="bg-slate-900 border border-slate-700 px-7 py-3.5 rounded-xl font-bold hover:border-emerald-500 transition">
-
-Analyze a Domain
-
-</a>
-
-</div>
-
-
-<div class="grid grid-cols-3 max-w-xl mx-auto mt-14 border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/60">
-
-<div class="p-5 border-r border-slate-800">
-
-<div id="domainCount" class="text-2xl font-black">
-0
-</div>
-
-<div class="text-xs text-slate-500 mt-1">
-Domains
-</div>
-
-</div>
-
-
-<div class="p-5 border-r border-slate-800">
-
-<div id="averageScore" class="text-2xl font-black">
-90+
-</div>
-
-<div class="text-xs text-slate-500 mt-1">
-Avg. score
-</div>
-
-</div>
-
-
-<div class="p-5">
-
-<div class="text-2xl font-black">
-.COM
-</div>
-
-<div class="text-xs text-slate-500 mt-1">
-Premium focus
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================================
-DOMAINS
-===================================================== -->
-
-<section id="domains" class="py-20">
-
-<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-
-<div class="max-w-3xl mb-10">
-
-<div class="text-emerald-400 text-xs uppercase tracking-[.2em] font-black mb-3">
-Premium Portfolio
-</div>
-
-<h2 class="text-3xl sm:text-4xl font-black">
-Domains For Sale
-</h2>
-
-<p class="text-slate-400 mt-3 leading-relaxed">
-
-Explore each domain as an individual digital asset.
-See its score, strengths, market positioning,
-possible applications and brand metrics.
-
-</p>
-
-</div>
-
-
-
-<!-- SEARCH -->
-
-<div class="flex flex-col lg:flex-row gap-3 mb-10">
-
-<div class="relative flex-1">
-
-<i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-slate-500"></i>
-
-<input
-id="search"
-oninput="renderDomains()"
-placeholder="Search domains, industries or keywords..."
-class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-11 pr-4 py-3 outline-none focus:border-emerald-500">
-
-</div>
-
-
-<select
-id="category"
-onchange="renderDomains()"
-class="bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 outline-none">
-
-<option value="all">All Categories</option>
-
-<option value="Brandable">
-Brandable
-</option>
-
-<option value="AI">
-AI & Technology
-</option>
-
-<option value="Robotics">
-Robotics
-</option>
-
-<option value="Biotech">
-Biotech & Health
-</option>
-
-<option value="Finance">
-Fintech
-</option>
-
-<option value="Logistics">
-Logistics
-</option>
-
-</select>
-
-
-<select
-id="sort"
-onchange="renderDomains()"
-class="bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 outline-none">
-
-<option value="score">
-Highest Score
-</option>
-
-<option value="name">
-Name A-Z
-</option>
-
-<option value="length">
-Shortest
-</option>
-
-</select>
-
-</div>
-
-
-<div id="domainGrid" class="space-y-7"></div>
-
-
-<div id="empty" class="hidden text-center py-20 text-slate-500">
-
-<i class="fa-solid fa-magnifying-glass text-3xl mb-4"></i>
-
-<div class="font-bold">
-No domains found
-</div>
-
-<div class="text-sm mt-1">
-Try another search.
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================================
-EVALUATION
-===================================================== -->
-
-<section id="evaluation" class="py-20 border-y border-slate-800 bg-slate-900/30">
-
-<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-
-<div class="max-w-3xl mb-12">
-
-<div class="text-emerald-400 text-xs uppercase tracking-[.2em] font-black mb-3">
-Evaluation Method
-</div>
-
-<h2 class="text-3xl sm:text-4xl font-black">
-What makes a domain valuable?
-</h2>
-
-<p class="text-slate-400 mt-4 leading-relaxed">
-
-Our scoring system looks beyond simple domain length.
-Each name is considered across multiple practical
-brand and commercial dimensions.
-
-</p>
-
-</div>
-
-
-<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-
-
-<div class="p-6 bg-slate-950 border border-slate-800 rounded-2xl">
-
-<i class="fa-solid fa-bolt text-emerald-400 text-xl"></i>
-
-<h3 class="font-black text-lg mt-4">
-Brandability
-</h3>
-
-<p class="text-sm text-slate-500 mt-2 leading-relaxed">
-How naturally the domain can become a standalone brand.
-</p>
-
-</div>
-
-
-<div class="p-6 bg-slate-950 border border-slate-800 rounded-2xl">
-
-<i class="fa-solid fa-volume-high text-emerald-400 text-xl"></i>
-
-<h3 class="font-black text-lg mt-4">
-Pronunciation
-</h3>
-
-<p class="text-sm text-slate-500 mt-2 leading-relaxed">
-How easy the name is to pronounce and communicate verbally.
-</p>
-
-</div>
-
-
-<div class="p-6 bg-slate-950 border border-slate-800 rounded-2xl">
-
-<i class="fa-solid fa-brain text-emerald-400 text-xl"></i>
-
-<h3 class="font-black text-lg mt-4">
-Memorability
-</h3>
-
-<p class="text-sm text-slate-500 mt-2 leading-relaxed">
-How distinctive and memorable the name can be.
-</p>
-
-</div>
-
-
-<div class="p-6 bg-slate-950 border border-slate-800 rounded-2xl">
-
-<i class="fa-solid fa-bullseye text-emerald-400 text-xl"></i>
-
-<h3 class="font-black text-lg mt-4">
-Market Fit
-</h3>
-
-<p class="text-sm text-slate-500 mt-2 leading-relaxed">
-How strongly the domain connects with a commercial category.
-</p>
-
-</div>
-
-
-<div class="p-6 bg-slate-950 border border-slate-800 rounded-2xl">
-
-<i class="fa-solid fa-chart-line text-emerald-400 text-xl"></i>
-
-<h3 class="font-black text-lg mt-4">
-Commercial Potential
-</h3>
-
-<p class="text-sm text-slate-500 mt-2 leading-relaxed">
-Potential value for startups, companies and digital products.
-</p>
-
-</div>
-
-
-<div class="p-6 bg-slate-950 border border-slate-800 rounded-2xl">
-
-<i class="fa-solid fa-eye text-emerald-400 text-xl"></i>
-
-<h3 class="font-black text-lg mt-4">
-Visual Identity
-</h3>
-
-<p class="text-sm text-slate-500 mt-2 leading-relaxed">
-How naturally the domain can translate into a recognizable visual brand.
-</p>
-
-</div>
-
-
-</div>
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================================
-ANALYZER
-===================================================== -->
-
-<section id="analyzer" class="py-20">
-
-<div class="max-w-5xl mx-auto px-4 sm:px-6">
-
-<div class="text-center mb-10">
-
-<div class="text-emerald-400 text-xs uppercase tracking-[.2em] font-black mb-3">
-Free Domain Tool
-</div>
-
-<h2 class="text-3xl sm:text-4xl font-black">
-C / V Domain Analyzer
-</h2>
-
-<p class="text-slate-400 mt-3">
-Analyze consonant and vowel structure of any domain name.
-</p>
-
-</div>
-
-
-<div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 sm:p-8">
-
-
-<div class="flex flex-col sm:flex-row gap-3">
-
-<input
-id="analyzerInput"
-onkeydown="if(event.key==='Enter') analyzeDomain()"
-placeholder="Example: Simbler.com"
-class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-5 py-4 font-mono outline-none focus:border-emerald-500">
-
-
-<button
-onclick="analyzeDomain()"
-class="bg-emerald-500 text-slate-950 font-black px-7 py-4 rounded-xl hover:bg-emerald-400">
-
-Analyze
-
-</button>
-
-</div>
-
-
-<div class="flex justify-center gap-5 mt-5 text-xs">
-
-<span class="flex items-center gap-2 text-blue-400">
-
-<span class="w-3 h-3 rounded bg-blue-400"></span>
-
-C = Consonant
-
-</span>
-
-
-<span class="flex items-center gap-2 text-emerald-400">
-
-<span class="w-3 h-3 rounded bg-emerald-400"></span>
-
-V = Vowel
-
-</span>
-
-</div>
-
-
-<div id="analysisResult" class="hidden mt-8">
-
-<div class="grid md:grid-cols-3 gap-4">
-
-
-<div class="md:col-span-2 bg-slate-950 border border-slate-800 rounded-2xl p-6">
-
-<div class="text-xs text-slate-500 uppercase tracking-widest">
-Domain
-</div>
-
-<div
-id="analysisName"
-class="text-3xl font-black font-mono mt-2">
-</div>
-
-
-<div class="text-xs text-slate-500 uppercase tracking-widest mt-8 mb-3">
-Letter Structure
-</div>
-
-<div id="cvOutput" class="flex flex-wrap gap-2">
-</div>
-
-</div>
-
-
-<div class="score-box border border-emerald-500/20 rounded-2xl p-6 flex flex-col items-center justify-center">
-
-<div class="text-xs uppercase tracking-widest text-slate-500">
-Pronunciation
-</div>
-
-<div
-id="analysisScore"
-class="text-5xl font-black text-emerald-400 mt-2">
---
-</div>
-
-<div
-id="analysisText"
-class="text-sm text-slate-400 mt-2">
---
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================================
-CONTACT
-===================================================== -->
-
-<section id="contact" class="py-20 border-t border-slate-800">
-
-<div class="max-w-4xl mx-auto px-4 text-center">
-
-<div class="w-16 h-16 mx-auto rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-2xl">
-
-<i class="fa-solid fa-handshake"></i>
-
-</div>
-
-
-<h2 class="text-3xl sm:text-4xl font-black mt-6">
-Looking for a domain for your next brand?
-</h2>
-
-
-<p class="text-slate-400 mt-4 max-w-2xl mx-auto leading-relaxed">
-
-Choose a domain from the portfolio and continue
-to Spaceship for registration, or contact us directly
-to discuss an offer.
-
-</p>
-
-
-<div class="flex flex-col sm:flex-row justify-center gap-3 mt-8">
-
-
-<a
-href="https://www.spaceship.com/domains/"
-target="_blank"
-class="bg-emerald-500 text-slate-950 px-7 py-3.5 rounded-xl font-black hover:bg-emerald-400 transition">
-
-<i class="fa-solid fa-cart-shopping mr-2"></i>
-
-Browse on Spaceship
-
-</a>
-
-
-<a
-href="mailto:cccvcccv3@gmail.com"
-class="bg-slate-900 border border-slate-700 px-7 py-3.5 rounded-xl font-bold hover:border-emerald-500 transition">
-
-<i class="fa-solid fa-envelope mr-2"></i>
-
-Contact Seller
-
-</a>
-
-</div>
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================================
-FOOTER
-===================================================== -->
-
-<footer class="border-t border-slate-900 py-10">
-
-<div class="max-w-7xl mx-auto px-4">
-
-<div class="flex flex-col sm:flex-row justify-between gap-4 text-xs text-slate-600">
-
-<div>
-© 2026 Simbler.com. All rights reserved.
-</div>
-
-<div>
-Premium Domains • Brand Intelligence • Digital Assets
-</div>
-
-</div>
-
-</div>
-
-</footer>
-
-
-
-<!-- =====================================================
-MODAL
-===================================================== -->
-
-<div
-id="domainModal"
-class="hidden fixed inset-0 z-[100] modal-bg items-center justify-center p-4">
-
-<div class="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-4xl max-h-[92vh] overflow-y-auto">
-
-<div id="modalContent"></div>
-
-</div>
-
-</div>
-
-
-
-<script>
-
-/* =====================================================
-DOMAIN DATABASE
-===================================================== */
-
-const domains = [
-
-{
-name:"Simbler.com",
-category:"Brandable",
-type:"Flagship Brand",
-score:96,
-icon:"fa-wand-magic-sparkles",
-
-description:
-"Simbler.com is a highly brandable invented .com with a smooth, modern sound. The name naturally suggests simplicity and ease, making it especially attractive for SaaS, AI, automation, productivity and digital products.",
-
-strengths:[
-"Strong connection to the concept of simplicity",
-"Smooth and easy-to-repeat pronunciation",
-"Short, clean and modern .com structure",
-"Excellent fit for SaaS and AI products",
-"Flexible enough to grow beyond one product"
-],
-
-metrics:{
-brandability:98,
-memorability:95,
-pronunciation:96,
-marketFit:96,
-commercial:97,
-visual:95
-},
-
-uses:[
-"SaaS",
-"AI",
-"Automation",
-"Productivity",
-"Developer Tools",
-"Digital Products"
-],
-
-pattern:"CVCCVC"
-
-},
-
-
-{
-name:"Owln.com",
-category:"Brandable",
-type:"4-Letter Brand",
-score:94,
-icon:"fa-eye",
-
-description:
-"A compact four-letter .com with a recognizable owl-inspired identity. Owln is highly suitable for technology companies looking for a short, distinctive and visually powerful brand.",
-
-strengths:[
-"Very short 4-letter domain",
-"Strong owl-inspired visual identity",
-"Excellent technology positioning",
-"Easy to build a memorable logo",
-"Suitable for AI and analytics"
-],
-
-metrics:{
-brandability:96,
-memorability:95,
-pronunciation:89,
-marketFit:93,
-commercial:94,
-visual:97
-},
-
-uses:[
-"AI",
-"Analytics",
-"SaaS",
-"Cybersecurity",
-"Robotics"
-],
-
-pattern:"CCCV"
-
-},
-
-
-{
-name:"Olibea.com",
-category:"Brandable",
-type:"Invented Brand",
-score:93,
-icon:"fa-gem",
-
-description:
-"Olibea.com is a smooth invented .com with an open vowel structure and an approachable sound. It can be positioned across consumer technology, commerce, digital services and modern software.",
-
-strengths:[
-"Flexible brand positioning",
-"Smooth vowel-rich sound",
-"Distinctive invented identity",
-"Strong logo possibilities",
-"Broad commercial applications"
-],
-
-metrics:{
-brandability:96,
-memorability:93,
-pronunciation:96,
-marketFit:89,
-commercial:92,
-visual:95
-},
-
-uses:[
-"E-commerce",
-"SaaS",
-"Consumer Tech",
-"AI",
-"Digital Services"
-],
-
-pattern:"VCVCVV"
-
-},
-
-
-{
-name:"Modeltic.com",
-category:"AI",
-type:"Technology Brand",
-score:93,
-icon:"fa-cubes",
-
-description:
-"Modeltic.com has a modern technical character that can suggest modeling, modular systems, computation and advanced technology. It offers broad positioning without being tied to one narrow product.",
-
-strengths:[
-"Futuristic technology sound",
-"Broad AI positioning",
-"Distinctive invented structure",
-"Good enterprise potential",
-"Strong visual branding opportunities"
-],
-
-metrics:{
-brandability:95,
-memorability:93,
-pronunciation:94,
-marketFit:92,
-commercial:93,
-visual:94
-},
-
-uses:[
-"AI",
-"Software",
-"Modeling",
-"Engineering",
-"Technology"
-],
-
-pattern:"CVCVC"
-
-},
-
-
-{
-name:"EdgeList.ai",
-category:"AI",
-type:"AI Discovery",
-score:93,
-icon:"fa-list-check",
-
-description:
-"EdgeList.ai is a highly focused AI domain combining the Edge concept with List. It is particularly suitable for AI directories, curated tool collections, rankings and discovery platforms.",
-
-strengths:[
-"Native .ai extension",
-"Clear AI discovery concept",
-"Strong Edge technology association",
-"Excellent directory positioning",
-"Easy product-market explanation"
-],
-
-metrics:{
-brandability:94,
-memorability:93,
-pronunciation:95,
-marketFit:98,
-commercial:95,
-visual:91
-},
-
-uses:[
-"AI Directory",
-"AI Tools",
-"Rankings",
-"Discovery",
-"Technology Intelligence"
-],
-
-pattern:"VCCCCVC"
-
-},
-
-
-{
-name:"EdgePose.com",
-category:"AI",
-type:"Edge AI / Computer Vision",
-score:92,
-icon:"fa-eye",
-
-description:
-"EdgePose.com directly combines Edge Computing with Pose Estimation. It is a strong technical domain for real-time computer vision, smart cameras, robotics and edge AI applications.",
-
-strengths:[
-"Strong Edge AI association",
-"Clear computer vision meaning",
-"Excellent robotics relevance",
-"Strong real-time AI positioning",
-"Suitable for cameras and IoT"
-],
-
-metrics:{
-brandability:93,
-memorability:92,
-pronunciation:94,
-marketFit:98,
-commercial:95,
-visual:92
-},
-
-uses:[
-"Edge AI",
-"Computer Vision",
-"Robotics",
-"Smart Cameras",
-"IoT"
-],
-
-pattern:"VCCCV"
-
-},
-
-
-{
-name:"EntireIQ.com",
-category:"AI",
-type:"AI Intelligence",
-score:91,
-icon:"fa-brain",
-
-description:
-"EntireIQ.com combines the concept of completeness with intelligence. It has a professional enterprise character and can fit AI analytics, business intelligence and decision-support platforms.",
-
-strengths:[
-"Strong enterprise positioning",
-"Clear intelligence association",
-"Professional two-part structure",
-"Good AI applications",
-"Strong analytics potential"
-],
-
-metrics:{
-brandability:92,
-memorability:91,
-pronunciation:93,
-marketFit:94,
-commercial:94,
-visual:89
-},
-
-uses:[
-"AI",
-"Analytics",
-"Enterprise",
-"Data Intelligence",
-"Decision Systems"
-],
-
-pattern:"VCCVCCV"
-
-},
-
-
-{
-name:"PoseAgent.com",
-category:"AI",
-type:"Computer Vision",
-score:90,
-icon:"fa-robot",
-
-description:
-"PoseAgent.com is a direct technical brand for intelligent pose estimation agents, spatial understanding, computer vision and robotics software.",
-
-strengths:[
-"Clear computer vision meaning",
-"Strong AI agent terminology",
-"Excellent robotics relevance",
-"Suitable for APIs and platforms",
-"Strong technical credibility"
-],
-
-metrics:{
-brandability:90,
-memorability:91,
-pronunciation:95,
-marketFit:97,
-commercial:94,
-visual:90
-},
-
-uses:[
-"Computer Vision",
-"Robotics",
-"Pose Estimation",
-"AI Agents",
-"Spatial AI"
-],
-
-pattern:"CVCCVCC"
-
-},
-
-
-{
-name:"AgentPose.com",
-category:"Robotics",
-type:"AI / Robotics",
-score:89,
-icon:"fa-robot",
-
-description:
-"AgentPose.com positions intelligent agents around physical pose, motion and spatial interaction. It is particularly relevant to embodied AI and robotic systems.",
-
-strengths:[
-"Direct AI-agent terminology",
-"Strong robotics application",
-"Clear motion intelligence concept",
-"Suitable for embodied AI",
-"Good technical branding"
-],
-
-metrics:{
-brandability:89,
-memorability:90,
-pronunciation:94,
-marketFit:96,
-commercial:92,
-visual:90
-},
-
-uses:[
-"Robotics",
-"Embodied AI",
-"Humanoid Robots",
-"Computer Vision",
-"Motion AI"
-],
-
-pattern:"VCVCCCV"
-
-},
-
-
-{
-name:"PoseRobotics.com",
-category:"Robotics",
-type:"Robotics Industry",
-score:91,
-icon:"fa-robot",
-
-description:
-"PoseRobotics.com is a highly descriptive robotics domain focused on pose, movement, kinematics and intelligent physical systems.",
-
-strengths:[
-"Very clear robotics relevance",
-"Strong pose estimation association",
-"Excellent industrial applications",
-"Good research positioning",
-"Strong humanoid robotics fit"
-],
-
-metrics:{
-brandability:88,
-memorability:90,
-pronunciation:94,
-marketFit:99,
-commercial:94,
-visual:88
-},
-
-uses:[
-"Robotics",
-"Humanoid Robots",
-"Kinematics",
-"Computer Vision",
-"Research"
-],
-
-pattern:"CVCCCVCCC"
-
-},
-
-
-{
-name:"BiotechSim.com",
-category:"Biotech",
-type:"Biotechnology Simulation",
-score:90,
-icon:"fa-dna",
-
-description:
-"BiotechSim.com directly connects biotechnology with simulation. The combination is especially relevant to computational biology, drug discovery, pharmaceutical modeling and life-science research.",
-
-strengths:[
-"Immediate biotechnology relevance",
-"Clear simulation positioning",
-"Excellent computational biology fit",
-"Strong pharma applications",
-"Easy industry explanation"
-],
-
-metrics:{
-brandability:87,
-memorability:90,
-pronunciation:91,
-marketFit:99,
-commercial:95,
-visual:86
-},
-
-uses:[
-"Biotech",
-"Pharma",
-"Drug Discovery",
-"Computational Biology",
-"AI Research"
-],
-
-pattern:"CVVCVCCVC"
-
-},
-
-
-{
-name:"Bioohm.com",
-category:"Biotech",
-type:"Bioelectronics",
-score:89,
-icon:"fa-bolt",
-
-description:
-"Bioohm.com creates a distinctive connection between biology and electrical resistance. The name is particularly interesting for bioelectronics, diagnostics, sensors and medical technology.",
-
-strengths:[
-"Distinctive scientific concept",
-"Strong bioelectronics potential",
-"Short memorable structure",
-"Technically meaningful combination",
-"Excellent sensor applications"
-],
-
-metrics:{
-brandability:91,
-memorability:91,
-pronunciation:86,
-marketFit:92,
-commercial:88,
-visual:94
-},
-
-uses:[
-"Bioelectronics",
-"Diagnostics",
-"Medical Devices",
-"Sensors",
-"Health Tech"
-],
-
-pattern:"CVVVC"
-
-},
-
-
-{
-name:"Payrss.com",
-category:"Finance",
-type:"Fintech",
-score:87,
-icon:"fa-credit-card",
-
-description:
-"Payrss.com combines Pay with RSS, creating a technology-oriented name that can be positioned around payment feeds, financial APIs, transaction notifications and automation.",
-
-strengths:[
-"Immediate payment association",
-"Short technology-oriented name",
-"Potential financial feed applications",
-"Suitable for fintech APIs",
-"Strong commercial keyword opening"
-],
-
-metrics:{
-brandability:85,
-memorability:87,
-pronunciation:82,
-marketFit:92,
-commercial:90,
-visual:87
-},
-
-uses:[
-"Fintech",
-"Payments",
-"Financial APIs",
-"Transaction Feeds",
-"Automation"
-],
-
-pattern:"CVCCC"
-
-},
-
-
-{
-name:"SafestShip.com",
-category:"Logistics",
-type:"Shipping / Logistics",
-score:88,
-icon:"fa-truck-fast",
-
-description:
-"SafestShip.com communicates secure and reliable shipping immediately. It is a strong trust-oriented name for logistics, freight, delivery and e-commerce infrastructure.",
-
-strengths:[
-"Immediate shipping association",
-"Strong trust positioning",
-"Clear commercial meaning",
-"Good logistics platform fit",
-"Easy marketing message"
-],
-
-metrics:{
-brandability:88,
-memorability:90,
-pronunciation:94,
-marketFit:96,
-commercial:94,
-visual:88
-},
-
-uses:[
-"Shipping",
-"Logistics",
-"Freight",
-"Delivery",
-"E-commerce"
-],
-
-pattern:"CVCCCVCC"
-
-}
-
-];
-
-
-/* =====================================================
-SPACESHIP LINK
-===================================================== */
-
-function spaceship(domain){
-
-    return "https://www.spaceship.com/domains/?query="
-    + encodeURIComponent(domain);
-
-}
-
-
-/* =====================================================
-C / V
-===================================================== */
-
-function getCV(name){
-
-    const clean = name
-        .toLowerCase()
-        .replace(/\.[a-z0-9]+$/,"")
-        .replace(/[^a-z]/g,"");
-
-    const vowels = "aeiouy";
-
-    return clean.split("").map(letter => ({
-
-        letter:letter,
-
-        type:vowels.includes(letter)
-            ? "V"
-            : "C"
-
-    }));
-
-}
-
-
-/* =====================================================
-METRIC
-===================================================== */
-
-function metric(label,value){
-
-    return `
-
-    <div>
-
-        <div class="flex justify-between text-xs mb-2">
-
-            <span class="text-slate-400">
-                ${label}
-            </span>
-
-            <span class="font-bold">
-                ${value}
-            </span>
-
-        </div>
-
-        <div class="metric-bar">
-
-            <div
-            class="metric-fill"
-            style="width:${value}%">
             </div>
 
         </div>
 
     </div>
 
+</section>
+
+
+<!-- ================= ANALYZER ================= -->
+
+<section id="analyzer" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+
+    <div class="glass border border-slate-800 rounded-3xl p-5 md:p-8 glow">
+
+        <div class="grid lg:grid-cols-[1fr_360px] gap-8">
+
+            <!-- LEFT -->
+
+            <div>
+
+                <div class="mb-6">
+
+                    <div class="text-xs font-bold uppercase tracking-[.18em] text-emerald-400 mb-2">
+                        Domain Analyzer
+                    </div>
+
+                    <h2 class="text-2xl md:text-3xl font-extrabold">
+
+                        <span class="lang-en">
+                            Pronunciation & C/V Analyzer
+                        </span>
+
+                        <span class="lang-ar">
+                            محلل النطق والحروف C/V
+                        </span>
+
+                    </h2>
+
+                    <p class="text-slate-400 text-sm mt-2">
+
+                        <span class="lang-en">
+                            Enter a domain name and see how its letters are structured.
+                        </span>
+
+                        <span class="lang-ar">
+                            أدخل اسم دومين وشاهد كيف تتوزع حروفه بين C و V.
+                        </span>
+
+                    </p>
+
+                </div>
+
+
+                <div class="flex flex-col sm:flex-row gap-3">
+
+                    <input
+                        id="domainInput"
+                        type="text"
+                        value="Simbler.com"
+                        placeholder="Example: Simbler.com"
+                        onkeydown="if(event.key==='Enter') analyzeDomain()"
+                        class="flex-1 px-5 py-4 rounded-xl bg-slate-950 border border-slate-700 focus:border-emerald-500 focus:outline-none text-white font-mono">
+
+                    <button
+                        onclick="analyzeDomain()"
+                        class="px-7 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold transition">
+
+                        <span class="lang-en">Analyze</span>
+                        <span class="lang-ar">تحليل</span>
+
+                    </button>
+
+                </div>
+
+
+                <!-- RESULT -->
+
+                <div id="analysisResult" class="mt-7">
+
+                    <div class="rounded-2xl bg-slate-950/80 border border-slate-800 p-5">
+
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+
+                            <div>
+
+                                <div class="text-xs text-slate-500 uppercase tracking-wider">
+                                    Target Domain
+                                </div>
+
+                                <div id="resultDomain"
+                                     class="text-2xl md:text-3xl font-extrabold font-mono mt-1">
+                                    Simbler.com
+                                </div>
+
+                                <button
+                                    onclick="speakDomain()"
+                                    class="mt-3 text-sm text-emerald-400 hover:text-emerald-300">
+
+                                    🔊
+                                    <span class="lang-en">Hear pronunciation</span>
+                                    <span class="lang-ar">استمع إلى النطق</span>
+
+                                </button>
+
+                            </div>
+
+
+                            <div class="flex items-center gap-5">
+
+                                <div>
+
+                                    <div class="text-xs text-slate-500 uppercase tracking-wider">
+                                        Pronunciation
+                                    </div>
+
+                                    <div id="pronunciationLabel"
+                                         class="text-xl font-extrabold text-emerald-400 mt-1">
+                                        Excellent
+                                    </div>
+
+                                </div>
+
+                                <div id="scoreRing"
+                                     class="score-ring"
+                                     style="--score: 92%;">
+
+                                    <div class="text-center">
+
+                                        <div id="scoreNumber"
+                                             class="text-2xl font-black">
+                                            92
+                                        </div>
+
+                                        <div class="text-[10px] text-slate-500">
+                                            / 100
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- C V -->
+
+                        <div class="mt-8">
+
+                            <div class="flex items-center justify-between mb-3">
+
+                                <div>
+
+                                    <div class="text-sm font-bold">
+
+                                        <span class="lang-en">
+                                            Letter Structure
+                                        </span>
+
+                                        <span class="lang-ar">
+                                            تركيب الحروف
+                                        </span>
+
+                                    </div>
+
+                                    <div class="text-xs text-slate-500 mt-1">
+
+                                        <span class="lang-en">
+                                            C = Consonant · V = Vowel
+                                        </span>
+
+                                        <span class="lang-ar">
+                                            C = حرف ساكن · V = حرف متحرك
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                                <div id="cvPattern"
+                                     class="font-mono text-sm font-bold text-slate-300">
+                                    CVCVCV
+                                </div>
+
+                            </div>
+
+                            <div id="cvGrid"
+                                 class="flex flex-wrap gap-2">
+                            </div>
+
+                        </div>
+
+
+                        <!-- STATS -->
+
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
+
+                            <div class="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+
+                                <div class="text-xs text-slate-500">
+                                    <span class="lang-en">Characters</span>
+                                    <span class="lang-ar">الحروف</span>
+                                </div>
+
+                                <div id="charCount"
+                                     class="text-xl font-bold mt-1">
+                                    7
+                                </div>
+
+                            </div>
+
+
+                            <div class="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+
+                                <div class="text-xs text-slate-500">
+                                    <span class="lang-en">Vowels</span>
+                                    <span class="lang-ar">المتحركة</span>
+                                </div>
+
+                                <div id="vowelCount"
+                                     class="text-xl font-bold text-rose-400 mt-1">
+                                    3
+                                </div>
+
+                            </div>
+
+
+                            <div class="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+
+                                <div class="text-xs text-slate-500">
+                                    <span class="lang-en">Consonants</span>
+                                    <span class="lang-ar">الساكنة</span>
+                                </div>
+
+                                <div id="consonantCount"
+                                     class="text-xl font-bold text-blue-400 mt-1">
+                                    4
+                                </div>
+
+                            </div>
+
+
+                            <div class="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+
+                                <div class="text-xs text-slate-500">
+                                    <span class="lang-en">Length</span>
+                                    <span class="lang-ar">الطول</span>
+                                </div>
+
+                                <div id="lengthLabel"
+                                     class="text-xl font-bold mt-1">
+                                    Short
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT INFO -->
+
+            <div class="rounded-2xl border border-slate-800 bg-slate-950/60 p-6">
+
+                <div class="text-emerald-400 text-2xl mb-4">
+                    ◈
+                </div>
+
+                <h3 class="text-xl font-bold">
+
+                    <span class="lang-en">
+                        Why C/V Matters
+                    </span>
+
+                    <span class="lang-ar">
+                        لماذا C/V مهم؟
+                    </span>
+
+                </h3>
+
+                <p class="text-slate-400 text-sm leading-7 mt-3">
+
+                    <span class="lang-en">
+                        Balanced consonant and vowel patterns can make a brand
+                        easier to pronounce, remember and communicate.
+                    </span>
+
+                    <span class="lang-ar">
+                        التوازن بين الحروف الساكنة والمتحركة يمكن أن يجعل الاسم
+                        أسهل في النطق والتذكر والتواصل.
+                    </span>
+
+                </p>
+
+
+                <div class="mt-6 space-y-3">
+
+                    <div class="flex gap-3 items-center">
+
+                        <span class="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 font-bold">
+                            C
+                        </span>
+
+                        <span class="text-sm text-slate-300">
+
+                            <span class="lang-en">Consonant</span>
+                            <span class="lang-ar">حرف ساكن</span>
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex gap-3 items-center">
+
+                        <span class="w-9 h-9 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 font-bold">
+                            V
+                        </span>
+
+                        <span class="text-sm text-slate-300">
+
+                            <span class="lang-en">Vowel</span>
+                            <span class="lang-ar">حرف متحرك</span>
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="mt-7 p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
+
+                    <div class="text-xs text-emerald-400 font-bold uppercase tracking-wider">
+                        Simbler Method
+                    </div>
+
+                    <p class="text-xs text-slate-400 leading-6 mt-2">
+
+                        <span class="lang-en">
+                            This analysis focuses on the written letter structure.
+                            Actual pronunciation can vary by language and speaker.
+                        </span>
+
+                        <span class="lang-ar">
+                            هذا التحليل يعتمد على تركيب الحروف المكتوبة،
+                            وقد يختلف النطق الفعلي حسب اللغة والمتحدث.
+                        </span>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DOMAINS ================= -->
+
+<section id="domains" class="border-y border-slate-800/70 bg-slate-900/20">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10">
+
+            <div>
+
+                <div class="text-xs uppercase tracking-[.18em] text-emerald-400 font-bold mb-2">
+                    Premium Portfolio
+                </div>
+
+                <h2 class="text-3xl md:text-4xl font-extrabold">
+
+                    <span class="lang-en">
+                        Domains For Sale
+                    </span>
+
+                    <span class="lang-ar">
+                        دومينات للبيع
+                    </span>
+
+                </h2>
+
+                <p class="text-slate-400 mt-2 max-w-2xl">
+
+                    <span class="lang-en">
+                        Selected names with clear branding opportunities and strong commercial use cases.
+                    </span>
+
+                    <span class="lang-ar">
+                        أسماء مختارة مع فرص واضحة للعلامات التجارية واستخدامات تجارية قوية.
+                    </span>
+
+                </p>
+
+            </div>
+
+
+            <div class="relative">
+
+                <input
+                    id="domainSearch"
+                    oninput="filterDomains()"
+                    placeholder="Search domains..."
+                    class="w-full md:w-64 bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emerald-500">
+
+            </div>
+
+        </div>
+
+
+        <div id="domainGrid"
+             class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+
+    <div class="grid md:grid-cols-3 gap-5">
+
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/50 p-6">
+
+            <div class="text-emerald-400 text-2xl mb-4">01</div>
+
+            <h3 class="font-bold text-lg">
+
+                <span class="lang-en">Pronunciation</span>
+                <span class="lang-ar">سهولة النطق</span>
+
+            </h3>
+
+            <p class="text-sm text-slate-400 leading-7 mt-2">
+
+                <span class="lang-en">
+                    See how a domain's letters are arranged and how easily the name may be spoken.
+                </span>
+
+                <span class="lang-ar">
+                    شاهد ترتيب الحروف ومدى سهولة قراءة ونطق الاسم.
+                </span>
+
+            </p>
+
+        </div>
+
+
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/50 p-6">
+
+            <div class="text-emerald-400 text-2xl mb-4">02</div>
+
+            <h3 class="font-bold text-lg">
+
+                <span class="lang-en">Brand Potential</span>
+                <span class="lang-ar">قوة العلامة</span>
+
+            </h3>
+
+            <p class="text-sm text-slate-400 leading-7 mt-2">
+
+                <span class="lang-en">
+                    Every listed domain includes practical ideas for products, companies and digital brands.
+                </span>
+
+                <span class="lang-ar">
+                    كل دومين معروض يتضمن أفكاراً عملية للمشاريع والشركات والمنتجات الرقمية.
+                </span>
+
+            </p>
+
+        </div>
+
+
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/50 p-6">
+
+            <div class="text-emerald-400 text-2xl mb-4">03</div>
+
+            <h3 class="font-bold text-lg">
+
+                <span class="lang-en">Direct Purchase</span>
+                <span class="lang-ar">شراء مباشر</span>
+
+            </h3>
+
+            <p class="text-sm text-slate-400 leading-7 mt-2">
+
+                <span class="lang-en">
+                    Use the Buy Now button to search for the exact domain on Spaceship.
+                </span>
+
+                <span class="lang-ar">
+                    استخدم زر الشراء للانتقال مباشرة إلى بحث الدومين في Spaceship.
+                </span>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="border-t border-slate-800 py-10">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="flex flex-col md:flex-row justify-between gap-5 items-center">
+
+            <div class="flex items-center gap-3">
+
+                <div class="logo-mark">
+                    S
+                </div>
+
+                <div>
+
+                    <div class="font-extrabold">
+                        Simbler
+                    </div>
+
+                    <div class="text-xs text-slate-600">
+                        Domain Intelligence
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="text-xs text-slate-600">
+                © 2026 Simbler. Domain information is for informational purposes.
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+/* ============================================================
+   DOMAIN DATABASE
+============================================================ */
+
+const domains = [
+
+{
+    name: "Owln.com",
+    type: "Short Brand",
+    icon: "O",
+    description: "A compact four-letter brand inspired by the owl, suggesting intelligence, vision, awareness and a sharp digital identity.",
+    uses: "AI platforms, analytics, cybersecurity, search, productivity or intelligent software.",
+    strengths: [
+        "Extremely short",
+        "Strong visual identity",
+        "Easy to remember",
+        "Owl association",
+        "Broad technology use"
+    ]
+},
+
+{
+    name: "Simbler.com",
+    type: "Brandable",
+    icon: "S",
+    description: "A smooth modern brand name that naturally suggests simplicity, easier workflows and products designed to make complex tasks simpler.",
+    uses: "SaaS, productivity, automation, AI tools, workflow platforms or consumer technology.",
+    strengths: [
+        "Simple and friendly sound",
+        "Strong brand potential",
+        "Easy to build a story around",
+        "Technology friendly",
+        "Broad commercial use"
+    ]
+},
+
+{
+    name: "Olibea.com",
+    type: "Brandable",
+    icon: "O",
+    description: "A distinctive invented brand with a soft, memorable sound and a flexible identity that can grow into many different industries.",
+    uses: "Consumer brands, marketplaces, lifestyle, technology, wellness or global digital products.",
+    strengths: [
+        "Distinctive invented name",
+        "Smooth pronunciation",
+        "Memorable structure",
+        "International feel",
+        "Flexible positioning"
+    ]
+},
+
+{
+    name: "BiotechSim.com",
+    type: "Biotech",
+    icon: "B",
+    description: "A highly descriptive combination of Biotechnology and Simulation, immediately communicating a scientific modeling concept.",
+    uses: "Biotech simulation, drug discovery, computational biology, research software and pharmaceutical modeling.",
+    strengths: [
+        "Clear industry meaning",
+        "Strong biotech relevance",
+        "Simulation keyword",
+        "Excellent research positioning",
+        "Strong B2B potential"
+    ]
+},
+
+{
+    name: "EntireIQ.com",
+    type: "AI / Intelligence",
+    icon: "E",
+    description: "Combines the idea of completeness with IQ, creating a name suited to platforms that turn large amounts of information into intelligence.",
+    uses: "AI analytics, business intelligence, data platforms, enterprise software or decision systems.",
+    strengths: [
+        "IQ creates intelligence association",
+        "Enterprise friendly",
+        "Clear technology positioning",
+        "Strong visual branding",
+        "Broad AI applications"
+    ]
+},
+
+{
+    name: "Bioohm.com",
+    type: "BioTech",
+    icon: "B",
+    description: "A distinctive combination of Bio and Ohm, connecting biology with electrical measurement and bio-impedance concepts.",
+    uses: "Medical technology, bio-impedance, wearable health technology, diagnostics and scientific devices.",
+    strengths: [
+        "Highly distinctive",
+        "Scientific association",
+        "Strong biotech angle",
+        "Short structure",
+        "Technical brand potential"
+    ]
+},
+
+{
+    name: "PoseAgent.com",
+    type: "AI / Robotics",
+    icon: "P",
+    description: "A direct technology-oriented name combining pose estimation with autonomous software agents.",
+    uses: "Computer vision, AI agents, pose estimation, robotics and spatial intelligence.",
+    strengths: [
+        "Clear AI meaning",
+        "Computer vision relevance",
+        "Robotics potential",
+        "Strong technical identity",
+        "Two powerful keywords"
+    ]
+},
+
+{
+    name: "AgentPose.com",
+    type: "AI / Robotics",
+    icon: "A",
+    description: "An alternative structure focused on intelligent agents that understand body position, movement and spatial information.",
+    uses: "Robotics, computer vision, humanoid AI, motion tracking and spatial computing.",
+    strengths: [
+        "Strong robotics relevance",
+        "AI agent association",
+        "Pose technology keyword",
+        "Technical positioning",
+        "Easy product concept"
+    ]
+},
+
+{
+    name: "Modeltic.com",
+    type: "Modern Tech",
+    icon: "M",
+    description: "A futuristic invented name with a technical sound that can support a modern software, AI or engineering brand.",
+    uses: "AI, modeling, software engineering, analytics, technology consulting or developer products.",
+    strengths: [
+        "Invented brand",
+        "Modern technical sound",
+        "Flexible meaning",
+        "Strong startup identity",
+        "Easy logo potential"
+    ]
+},
+
+{
+    name: "EdgePose.com",
+    type: "Edge AI",
+    icon: "E",
+    description: "Combines Edge computing with Pose technology, creating a highly focused name for real-time vision processing.",
+    uses: "Edge AI, computer vision, robotics, IoT cameras, motion tracking and smart devices.",
+    strengths: [
+        "Clear technology combination",
+        "Edge AI relevance",
+        "Computer vision fit",
+        "Real-time technology association",
+        "Strong B2B potential"
+    ]
+},
+
+{
+    name: "EdgeList.ai",
+    type: "AI",
+    icon: "E",
+    description: "A .ai brand combining Edge with List, suitable for discovering, organizing or curating emerging AI tools and technologies.",
+    uses: "AI directories, AI discovery platforms, software catalogs and technology intelligence.",
+    strengths: [
+        "Strong .ai extension",
+        "Short structure",
+        "Modern AI identity",
+        "Directory potential",
+        "Easy product concept"
+    ]
+},
+
+{
+    name: "SafestShip.com",
+    type: "Logistics",
+    icon: "S",
+    description: "A trust-oriented logistics name communicating safer, more reliable shipping and delivery.",
+    uses: "Shipping platforms, freight technology, logistics insurance, delivery services and e-commerce.",
+    strengths: [
+        "Trust-focused meaning",
+        "Clear shipping association",
+        "Commercial intent",
+        "Easy marketing message",
+        "Strong logistics positioning"
+    ]
+},
+
+{
+    name: "Payrss.com",
+    type: "FinTech",
+    icon: "P",
+    description: "A compact Pay plus RSS combination that can fit automated financial feeds, payment notifications or financial content infrastructure.",
+    uses: "FinTech, payment feeds, transaction notifications, financial automation and APIs.",
+    strengths: [
+        "Starts with Pay",
+        "Short name",
+        "FinTech relevance",
+        "API potential",
+        "Developer-friendly concept"
+    ]
+},
+
+{
+    name: "PoseRobotics.com",
+    type: "Robotics",
+    icon: "P",
+    description: "A direct robotics-oriented domain connecting pose, movement and body positioning with robotic systems.",
+    uses: "Humanoid robotics, robotic vision, motion control, simulation and robotics software.",
+    strengths: [
+        "Very clear industry",
+        "Robotics keyword",
+        "Pose technology relevance",
+        "B2B positioning",
+        "Strong technical meaning"
+    ]
+},
+
+{
+    name: "PeptiSim.com",
+    type: "Biotech",
+    icon: "P",
+    description: "A concise biotechnology name combining Peptide with Simulation, strongly suited to computational research.",
+    uses: "Peptide modeling, drug discovery, computational chemistry and pharmaceutical research.",
+    strengths: [
+        "Scientific positioning",
+        "Simulation relevance",
+        "Biotech applications",
+        "Short structure",
+        "Research-focused"
+    ]
+},
+
+{
+    name: "WorldHealthMD.com",
+    type: "Healthcare",
+    icon: "W",
+    description: "A globally oriented healthcare name connecting world health with medical expertise.",
+    uses: "Healthcare platforms, medical information, telemedicine, global health projects and medical services.",
+    strengths: [
+        "Strong health meaning",
+        "Global positioning",
+        "Medical association",
+        "Clear audience",
+        "Authority-oriented name"
+    ]
+},
+
+{
+    name: "Symbolise.org",
+    type: "Creative / Organization",
+    icon: "S",
+    description: "A refined name based around symbols, representation and meaning, with a creative and institutional character.",
+    uses: "Design organizations, cultural projects, educational initiatives, symbolism research or creative platforms.",
+    strengths: [
+        "Meaningful word",
+        "Distinctive spelling",
+        "Creative positioning",
+        "Institutional potential",
+        "Strong .org fit"
+    ]
+},
+
+{
+    name: "LividShop.com",
+    type: "E-commerce",
+    icon: "L",
+    description: "A memorable retail-oriented brand name designed for a modern online store or specialized shopping platform.",
+    uses: "E-commerce, fashion, lifestyle, accessories, consumer products and online retail.",
+    strengths: [
+        "Shop keyword",
+        "Easy commercial use",
+        "Memorable brand",
+        "Retail ready",
+        "Flexible product categories"
+    ]
+},
+
+{
+    name: "PizzaCiro.com",
+    type: "Food",
+    icon: "P",
+    description: "A friendly restaurant-style name with a personal identity that works naturally for pizza and Italian food concepts.",
+    uses: "Pizza restaurant, delivery service, food brand, Italian restaurant or local hospitality.",
+    strengths: [
+        "Immediate pizza meaning",
+        "Restaurant friendly",
+        "Personal brand feel",
+        "Easy to market",
+        "Food-focused"
+    ]
+},
+
+{
+    name: "CardArise.com",
+    type: "FinTech / Cards",
+    icon: "C",
+    description: "A dynamic card-focused brand suggesting growth, activation and modern financial or digital card products.",
+    uses: "Gift cards, payment cards, rewards, gaming cards, digital wallets and card platforms.",
+    strengths: [
+        "Card keyword",
+        "Action-oriented name",
+        "FinTech potential",
+        "Strong product identity",
+        "Wide card applications"
+    ]
+},
+
+{
+    name: "Zambujeiro.com",
+    type: "Brandable",
+    icon: "Z",
+    description: "A distinctive, highly recognizable name with strong character and a memorable visual identity.",
+    uses: "Consumer brands, hospitality, lifestyle, food, travel or creative businesses.",
+    strengths: [
+        "Highly distinctive",
+        "Strong character",
+        "Memorable identity",
+        "Premium brand potential",
+        "Excellent storytelling opportunity"
+    ]
+},
+
+{
+    name: "Steellevel.com",
+    type: "Industrial / Brand",
+    icon: "S",
+    description: "A strong industrial-sounding brand combining steel with level, suggesting strength, precision and high standards.",
+    uses: "Industrial technology, construction, engineering, manufacturing, tools or professional services.",
+    strengths: [
+        "Strength association",
+        "Industrial relevance",
+        "Professional sound",
+        "Strong B2B potential",
+        "Clear visual branding"
+    ]
+},
+
+{
+    name: "DuoAuction.com",
+    type: "Marketplace",
+    icon: "D",
+    description: "A marketplace-ready name combining Duo with Auction, suggesting a two-sided or dual-format auction platform.",
+    uses: "Auction platforms, collectibles, marketplaces, bidding software and online commerce.",
+    strengths: [
+        "Auction keyword",
+        "Marketplace ready",
+        "Clear business model",
+        "Memorable structure",
+        "Platform potential"
+    ]
+},
+
+{
+    name: "BeamMCP.com",
+    type: "AI / Developer",
+    icon: "B",
+    description: "A highly technical brand combining Beam with MCP, suitable for infrastructure connecting AI models, tools and agents.",
+    uses: "MCP infrastructure, AI developer tools, agent platforms, APIs and automation.",
+    strengths: [
+        "Strong AI developer angle",
+        "MCP relevance",
+        "Technical identity",
+        "Short structure",
+        "Developer audience"
+    ]
+},
+
+{
+    name: "PoseDental.com",
+    type: "Dental Tech",
+    icon: "P",
+    description: "A specialized dental technology name connecting pose, positioning and digital visualization with dentistry.",
+    uses: "Dental imaging, orthodontics, 3D dental scanning, AI dentistry and treatment planning.",
+    strengths: [
+        "Dental keyword",
+        "Technology positioning",
+        "3D imaging potential",
+        "AI dentistry fit",
+        "Specialized audience"
+    ]
+},
+
+{
+    name: "Goai.foo",
+    type: "AI",
+    icon: "G",
+    description: "An ultra-short AI-oriented domain with an informal modern extension, designed for memorable AI products and experiments.",
+    uses: "AI tools, developer projects, AI utilities, experimental products and creative technology.",
+    strengths: [
+        "Very short",
+        "AI keyword",
+        "Memorable phrase",
+        "Modern extension",
+        "Developer-friendly"
+    ]
+},
+
+{
+    name: "DubaiPartsSupplier.com",
+    type: "Automotive",
+    icon: "D",
+    description: "A highly descriptive commercial domain targeting automotive parts supply in Dubai.",
+    uses: "Auto parts suppliers, B2B automotive commerce, garages, distributors and vehicle components.",
+    strengths: [
+        "Strong geographic intent",
+        "Parts keyword",
+        "Supplier keyword",
+        "Clear B2B audience",
+        "Commercial search intent"
+    ]
+},
+
+{
+    name: "AccommodationMarlow.com",
+    type: "Travel / Property",
+    icon: "A",
+    description: "A location-focused accommodation domain targeting visitors searching for places to stay in Marlow.",
+    uses: "Hotels, holiday rentals, property listings, local travel guides and accommodation services.",
+    strengths: [
+        "Location-specific",
+        "Accommodation keyword",
+        "Travel intent",
+        "Clear audience",
+        "Local commercial potential"
+    ]
+}
+
+];
+
+
+/* ============================================================
+   BUY LINK
+============================================================ */
+
+function spaceshipLink(domain) {
+
+    return "https://www.spaceship.com/domain-search/?query="
+        + encodeURIComponent(domain)
+        + "&beast=false&tab=domains";
+
+}
+
+
+/* ============================================================
+   DOMAIN CARDS
+============================================================ */
+
+function renderDomains(list = domains) {
+
+    const grid = document.getElementById("domainGrid");
+
+    if (!list.length) {
+
+        grid.innerHTML = `
+            <div class="col-span-full text-center py-16 text-slate-500">
+                No domains found.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    grid.innerHTML = list.map((domain, index) => {
+
+        const strengthsHTML = domain.strengths.map(strength => `
+            <li class="flex gap-2 items-start">
+
+                <span class="text-emerald-400 mt-[2px]">✓</span>
+
+                <span>${strength}</span>
+
+            </li>
+        `).join("");
+
+
+        return `
+
+        <article class="domain-card rounded-2xl border border-slate-800 bg-slate-950/70 p-5 flex flex-col">
+
+            <div class="flex items-start justify-between gap-3">
+
+                <div class="flex items-center gap-3">
+
+                    <div class="domain-icon">
+                        ${domain.icon}
+                    </div>
+
+                    <div>
+
+                        <div class="flex items-center gap-2">
+
+                            <h3 class="text-xl font-extrabold font-mono">
+                                ${domain.name.replace(".", '<span class="text-slate-600">.</span>')}
+                            </h3>
+
+                        </div>
+
+                        <div class="mt-1 text-[11px] uppercase tracking-wider text-emerald-400 font-bold">
+                            ${domain.type}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="mt-5">
+
+                <div class="text-xs uppercase tracking-wider text-slate-600 font-bold mb-2">
+
+                    <span class="lang-en">What it can be</span>
+                    <span class="lang-ar">ماذا يمكن أن يكون؟</span>
+
+                </div>
+
+                <p class="text-sm text-slate-400 leading-6">
+                    ${domain.description}
+                </p>
+
+            </div>
+
+
+            <div class="mt-5">
+
+                <div class="text-xs uppercase tracking-wider text-slate-600 font-bold mb-2">
+
+                    <span class="lang-en">Best for</span>
+                    <span class="lang-ar">مناسب لـ</span>
+
+                </div>
+
+                <p class="text-sm text-slate-300 leading-6">
+                    ${domain.uses}
+                </p>
+
+            </div>
+
+
+            <div class="mt-5 pt-5 border-t border-slate-800">
+
+                <div class="text-xs uppercase tracking-wider text-slate-600 font-bold mb-3">
+
+                    <span class="lang-en">Key strengths</span>
+                    <span class="lang-ar">نقاط القوة</span>
+
+                </div>
+
+                <ul class="space-y-2 text-xs text-slate-400">
+
+                    ${strengthsHTML}
+
+                </ul>
+
+            </div>
+
+
+            <div class="mt-auto pt-6">
+
+                <a
+                    href="${spaceshipLink(domain.name)}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="buy-btn w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold py-3.5">
+
+                    <span class="lang-en">Buy ${domain.name}</span>
+                    <span class="lang-ar">شراء ${domain.name}</span>
+
+                    <span>↗</span>
+
+                </a>
+
+                <div class="text-center text-[10px] text-slate-600 mt-2">
+
+                    <span class="lang-en">
+                        Search this domain on Spaceship
+                    </span>
+
+                    <span class="lang-ar">
+                        البحث عن هذا الدومين في Spaceship
+                    </span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+        `;
+
+    }).join("");
+
+}
+
+
+/* ============================================================
+   SEARCH
+============================================================ */
+
+function filterDomains() {
+
+    const query = document
+        .getElementById("domainSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const filtered = domains.filter(domain =>
+        domain.name.toLowerCase().includes(query) ||
+        domain.type.toLowerCase().includes(query) ||
+        domain.description.toLowerCase().includes(query)
+    );
+
+    renderDomains(filtered);
+
+}
+
+
+/* ============================================================
+   ANALYZER
+============================================================ */
+
+const vowels = "aeiou";
+
+function cleanDomain(value) {
+
+    return value
+        .toLowerCase()
+        .trim()
+        .replace(/^https?:\/\//, "")
+        .replace(/^www\./, "")
+        .split("/")[0]
+        .split(".")[0]
+        .replace(/[^a-z]/g, "");
+
+}
+
+
+function isVowel(letter) {
+
+    return vowels.includes(letter);
+
+}
+
+
+function estimateSyllables(word) {
+
+    if (!word) return 0;
+
+    let clean = word.toLowerCase();
+
+    let groups = clean.match(/[aeiouy]+/g);
+
+    let count = groups ? groups.length : 1;
+
+    if (clean.endsWith("e") && count > 1) {
+        count--;
+    }
+
+    if (count < 1) count = 1;
+
+    return count;
+
+}
+
+
+function calculatePronunciationScore(word, pattern) {
+
+    if (!word) return 0;
+
+    let score = 70;
+
+    const length = word.length;
+
+    if (length <= 4) score += 12;
+    else if (length <= 7) score += 10;
+    else if (length <= 10) score += 5;
+    else score -= 5;
+
+
+    let alternating = 0;
+
+    for (let i = 1; i < pattern.length; i++) {
+
+        if (pattern[i] !== pattern[i - 1]) {
+            alternating++;
+        }
+
+    }
+
+    if (pattern.length > 1) {
+
+        const ratio = alternating / (pattern.length - 1);
+
+        if (ratio >= .70) score += 8;
+        else if (ratio >= .50) score += 5;
+
+    }
+
+
+    if (!/[bcdfghjklmnpqrstvwxyz]{4,}/.test(word)) {
+        score += 5;
+    } else {
+        score -= 8;
+    }
+
+
+    if (/(.)\1\1/.test(word)) {
+        score -= 5;
+    }
+
+
+    if (/[^aeiou]{5,}/.test(word)) {
+        score -= 7;
+    }
+
+
+    return Math.max(45, Math.min(98, score));
+
+}
+
+
+function pronunciationText(score) {
+
+    if (score >= 90) {
+
+        return {
+            en: "Excellent",
+            ar: "ممتاز"
+        };
+
+    }
+
+    if (score >= 80) {
+
+        return {
+            en: "Very Good",
+            ar: "جيد جداً"
+        };
+
+    }
+
+    if (score >= 70) {
+
+        return {
+            en: "Good",
+            ar: "جيد"
+        };
+
+    }
+
+    if (score >= 60) {
+
+        return {
+            en: "Moderate",
+            ar: "متوسط"
+        };
+
+    }
+
+    return {
+        en: "Challenging",
+        ar: "صعب نسبياً"
+    };
+
+}
+
+
+function analyzeDomain() {
+
+    const input = document.getElementById("domainInput").value;
+
+    const word = cleanDomain(input);
+
+    if (!word) {
+
+        alert(
+            document.body.classList.contains("ar")
+                ? "أدخل دومين صحيح."
+                : "Please enter a valid domain."
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById("resultDomain").textContent =
+        input.trim();
+
+
+    let pattern = "";
+
+    let vowelsCount = 0;
+    let consonantsCount = 0;
+
+
+    const cvGrid = document.getElementById("cvGrid");
+
+    cvGrid.innerHTML = "";
+
+
+    [...word].forEach(letter => {
+
+        const vowel = isVowel(letter);
+
+        const type = vowel ? "V" : "C";
+
+        pattern += type;
+
+        if (vowel) {
+            vowelsCount++;
+        } else {
+            consonantsCount++;
+        }
+
+
+        const box = document.createElement("div");
+
+        box.className =
+            "cv-letter " +
+            (vowel ? "cv-v" : "cv-c");
+
+
+        box.innerHTML = `
+
+            <div class="cv-char">
+                ${letter.toUpperCase()}
+            </div>
+
+            <div class="cv-type">
+                ${type}
+            </div>
+
+        `;
+
+
+        cvGrid.appendChild(box);
+
+    });
+
+
+    const score =
+        calculatePronunciationScore(word, pattern);
+
+
+    const label =
+        pronunciationText(score);
+
+
+    document.getElementById("cvPattern").textContent =
+        pattern;
+
+
+    document.getElementById("charCount").textContent =
+        word.length;
+
+
+    document.getElementById("vowelCount").textContent =
+        vowelsCount;
+
+
+    document.getElementById("consonantCount").textContent =
+        consonantsCount;
+
+
+    let lengthText;
+
+    if (word.length <= 5) {
+
+        lengthText =
+            document.body.classList.contains("ar")
+                ? "قصير"
+                : "Short";
+
+    } else if (word.length <= 8) {
+
+        lengthText =
+            document.body.classList.contains("ar")
+                ? "متوسط"
+                : "Medium";
+
+    } else {
+
+        lengthText =
+            document.body.classList.contains("ar")
+                ? "طويل"
+                : "Long";
+
+    }
+
+
+    document.getElementById("lengthLabel").textContent =
+        lengthText;
+
+
+    document.getElementById("scoreNumber").textContent =
+        score;
+
+
+    document.getElementById("scoreRing").style
+        .setProperty("--score", score + "%");
+
+
+    document.getElementById("pronunciationLabel").innerHTML = `
+
+        <span class="lang-en">${label.en}</span>
+        <span class="lang-ar">${label.ar}</span>
+
     `;
 
 }
 
 
-/* =====================================================
-RENDER DOMAINS
-===================================================== */
-
-function renderDomains(){
-
-    const grid =
-        document.getElementById("domainGrid");
-
-    const search =
-        document.getElementById("search")
-        .value
-        .toLowerCase()
-        .trim();
-
-    const category =
-        document.getElementById("category")
-        .value;
-
-    const sort =
-        document.getElementById("sort")
-        .value;
-
-
-    let list = domains.filter(domain => {
-
-        const searchable = [
-
-            domain.name,
-            domain.category,
-            domain.type,
-            domain.description,
-            ...domain.strengths,
-            ...domain.uses
-
-        ].join(" ").toLowerCase();
-
-
-        return searchable.includes(search)
-        &&
-        (
-            category === "all"
-            ||
-            domain.category === category
-        );
-
-    });
-
-
-    if(sort === "score"){
-
-        list.sort((a,b) =>
-            b.score-a.score
-        );
-
-    }
-
-
-    if(sort === "name"){
-
-        list.sort((a,b) =>
-            a.name.localeCompare(b.name)
-        );
-
-    }
-
-
-    if(sort === "length"){
-
-        list.sort((a,b) =>
-            a.name.length-b.name.length
-        );
-
-    }
-
-
-    document.getElementById("empty")
-        .classList.toggle(
-            "hidden",
-            list.length !== 0
-        );
-
-
-    grid.innerHTML =
-        list.map(domain => domainCard(domain))
-        .join("");
-
-}
-
-
-/* =====================================================
-DOMAIN CARD
-===================================================== */
-
-function domainCard(domain){
-
-    const letters =
-        getCV(domain.name);
-
-
-    const rating =
-        domain.score >= 95
-        ? "Exceptional"
-        : domain.score >= 92
-        ? "Excellent"
-        : domain.score >= 89
-        ? "Strong"
-        : "Good";
-
-
-    return `
-
-<article class="domain-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden fade">
-
-<div class="p-6 sm:p-8">
-
-
-<!-- NAME -->
-
-<div class="flex flex-col lg:flex-row justify-between gap-7">
-
-
-<div class="flex items-center gap-5">
-
-
-<div class="logo-box w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center flex-none">
-
-<i class="fa-solid ${domain.icon} text-2xl sm:text-3xl text-emerald-400"></i>
-
-</div>
-
-
-<div>
-
-<div class="flex flex-wrap items-center gap-2">
-
-<h3 class="text-3xl sm:text-4xl lg:text-5xl font-black font-mono tracking-tight">
-
-${domain.name}
-
-</h3>
-
-<span class="badge text-[10px] uppercase tracking-wider text-emerald-300 px-2.5 py-1 rounded-lg">
-
-${domain.type}
-
-</span>
-
-</div>
-
-
-<div class="text-sm text-slate-500 mt-2">
-
-${domain.category}
-
-<span class="mx-2">
-•
-</span>
-
-${domain.name.split(".")[0].length} characters
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- SCORE -->
-
-<div class="score-box border border-emerald-500/20 rounded-2xl px-5 py-4 min-w-[170px]">
-
-<div class="text-[10px] uppercase tracking-widest text-slate-500">
-
-Overall Domain Score
-
-</div>
-
-
-<div class="flex items-end gap-2 mt-1">
-
-<span class="text-4xl font-black text-emerald-400">
-
-${domain.score}
-
-</span>
-
-<span class="text-slate-500 text-sm mb-1">
-/ 100
-</span>
-
-</div>
-
-
-<div class="text-xs text-emerald-300 font-bold mt-1">
-
-${rating}
-
-</div>
-
-</div>
-
-
-</div>
-
-
-<!-- DESCRIPTION -->
-
-<div class="mt-9 max-w-5xl">
-
-<div class="text-xs uppercase tracking-[.18em] text-emerald-400 font-black mb-3">
-
-Domain Strength
-
-</div>
-
-
-<p class="text-base sm:text-lg text-slate-300 leading-relaxed">
-
-${domain.description}
-
-</p>
-
-</div>
-
-
-<!-- TWO COLUMNS -->
-
-<div class="grid lg:grid-cols-2 gap-10 mt-9">
-
-
-<!-- STRENGTHS -->
-
-<div>
-
-<div class="text-sm font-black mb-5">
-
-Why This Domain Is Strong
-
-</div>
-
-
-<div class="space-y-3">
-
-${domain.strengths.map(strength => `
-
-<div class="strength">
-
-<div class="strength-icon">
-
-<i class="fa-solid fa-check"></i>
-
-</div>
-
-<div class="text-sm text-slate-300 leading-relaxed">
-
-${strength}
-
-</div>
-
-</div>
-
-`).join("")}
-
-</div>
-
-</div>
-
-
-<!-- METRICS -->
-
-<div>
-
-<div class="text-sm font-black mb-5">
-
-Brand Strength Breakdown
-
-</div>
-
-
-<div class="space-y-4">
-
-${metric("Brandability",domain.metrics.brandability)}
-
-${metric("Memorability",domain.metrics.memorability)}
-
-${metric("Pronunciation",domain.metrics.pronunciation)}
-
-${metric("Market Fit",domain.metrics.marketFit)}
-
-${metric("Commercial Potential",domain.metrics.commercial)}
-
-${metric("Visual Identity",domain.metrics.visual)}
-
-</div>
-
-</div>
-
-
-</div>
-
-
-<!-- USE CASES -->
-
-<div class="mt-9">
-
-<div class="text-xs uppercase tracking-[.18em] text-slate-500 mb-3">
-
-Potential Applications
-
-</div>
-
-
-<div class="flex flex-wrap gap-2">
-
-${domain.uses.map(use => `
-
-<span class="badge px-3 py-2 rounded-lg text-xs text-slate-300">
-
-${use}
-
-</span>
-
-`).join("")}
-
-</div>
-
-</div>
-
-
-<!-- C V -->
-
-<div class="mt-9 bg-slate-950 border border-slate-800 rounded-2xl p-5">
-
-
-<div class="flex flex-col sm:flex-row justify-between gap-4">
-
-
-<div>
-
-<div class="text-xs uppercase tracking-widest text-slate-500">
-
-C / V Structure
-
-</div>
-
-
-<div class="flex flex-wrap items-center gap-1.5 mt-3">
-
-${letters.map(letter => `
-
-<span class="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center font-mono font-black ${letter.type === "C" ? "cv-c" : "cv-v"}">
-
-${letter.letter.toUpperCase()}
-
-</span>
-
-`).join("")}
-
-</div>
-
-</div>
-
-
-<div class="sm:text-right">
-
-<div class="text-xs text-slate-500">
-
-Pattern
-
-</div>
-
-<div class="font-mono text-lg font-black mt-2">
-
-${domain.pattern}
-
-</div>
-
-<div class="text-xs mt-1">
-
-<span class="text-blue-400">
-C = Consonant
-</span>
-
-<span class="mx-2 text-slate-700">
-|
-</span>
-
-<span class="text-emerald-400">
-V = Vowel
-</span>
-
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- ACTIONS -->
-
-<div class="flex flex-col sm:flex-row gap-3 mt-8 pt-6 border-t border-slate-800">
-
-
-<a
-href="${spaceship(domain.name)}"
-target="_blank"
-class="buy-btn flex-1 text-center bg-emerald-500 text-slate-950 py-3.5 rounded-xl font-black">
-
-<i class="fa-solid fa-cart-shopping mr-2"></i>
-
-Buy / Search on Spaceship
-
-</a>
-
-
-<button
-onclick="openDomain('${domain.name}')"
-class="sm:w-48 bg-slate-800 border border-slate-700 py-3.5 rounded-xl font-bold hover:border-emerald-500 transition">
-
-<i class="fa-solid fa-chart-simple mr-2"></i>
-
-Full Analysis
-
-</button>
-
-
-<a
-href="mailto:cccvcccv3@gmail.com?subject=Offer%20for%20${encodeURIComponent(domain.name)}"
-class="sm:w-40 bg-slate-800 border border-slate-700 py-3.5 rounded-xl font-bold text-center hover:border-emerald-500 transition">
-
-Make Offer
-
-</a>
-
-
-</div>
-
-
-</div>
-
-</article>
-
-`;
-
-}
-
-
-/* =====================================================
-MODAL
-===================================================== */
-
-function openDomain(name){
+/* ============================================================
+   SPEECH
+============================================================ */
+
+function speakDomain() {
 
     const domain =
-        domains.find(
-            item => item.name === name
-        );
+        document.getElementById("resultDomain").textContent.trim();
 
+    if (!("speechSynthesis" in window)) {
 
-    if(!domain) return;
-
-
-    document.getElementById("modalContent")
-    .innerHTML = `
-
-<div class="p-6 sm:p-9">
-
-
-<div class="flex justify-between items-start gap-5">
-
-
-<div class="flex items-center gap-4">
-
-<div class="logo-box w-16 h-16 rounded-2xl flex items-center justify-center">
-
-<i class="fa-solid ${domain.icon} text-2xl text-emerald-400"></i>
-
-</div>
-
-
-<div>
-
-<div class="text-xs uppercase tracking-widest text-emerald-400">
-
-${domain.category}
-
-</div>
-
-<h2 class="text-3xl sm:text-4xl font-black font-mono mt-1">
-
-${domain.name}
-
-</h2>
-
-</div>
-
-</div>
-
-
-<button
-onclick="closeDomain()"
-class="w-10 h-10 rounded-xl bg-slate-800 text-slate-400 hover:text-white">
-
-<i class="fa-solid fa-xmark"></i>
-
-</button>
-
-
-</div>
-
-
-<div class="grid sm:grid-cols-3 gap-3 mt-8">
-
-
-<div class="bg-slate-950 border border-slate-800 rounded-xl p-4">
-
-<div class="text-xs text-slate-500">
-Overall Score
-</div>
-
-<div class="text-3xl font-black text-emerald-400 mt-1">
-${domain.score}/100
-</div>
-
-</div>
-
-
-<div class="bg-slate-950 border border-slate-800 rounded-xl p-4">
-
-<div class="text-xs text-slate-500">
-Category
-</div>
-
-<div class="font-bold mt-2">
-${domain.category}
-</div>
-
-</div>
-
-
-<div class="bg-slate-950 border border-slate-800 rounded-xl p-4">
-
-<div class="text-xs text-slate-500">
-C / V Pattern
-</div>
-
-<div class="font-mono font-bold text-lg mt-1">
-${domain.pattern}
-</div>
-
-</div>
-
-
-</div>
-
-
-<div class="mt-8">
-
-<div class="text-xs uppercase tracking-widest text-emerald-400 mb-3">
-
-Detailed Positioning
-
-</div>
-
-<p class="text-slate-300 leading-relaxed">
-
-${domain.description}
-
-</p>
-
-</div>
-
-
-<div class="mt-8">
-
-<div class="text-sm font-black mb-4">
-
-Key Strengths
-
-</div>
-
-
-<div class="space-y-3">
-
-${domain.strengths.map((s,i) => `
-
-<div class="flex gap-3">
-
-<div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xs flex-none">
-
-${i+1}
-
-</div>
-
-<div class="text-sm text-slate-300 pt-1">
-
-${s}
-
-</div>
-
-</div>
-
-`).join("")}
-
-</div>
-
-</div>
-
-
-<div class="mt-8">
-
-<div class="text-sm font-black mb-4">
-
-Complete Score Breakdown
-
-</div>
-
-
-<div class="grid sm:grid-cols-2 gap-5">
-
-${metric("Brandability",domain.metrics.brandability)}
-
-${metric("Memorability",domain.metrics.memorability)}
-
-${metric("Pronunciation",domain.metrics.pronunciation)}
-
-${metric("Market Fit",domain.metrics.marketFit)}
-
-${metric("Commercial Potential",domain.metrics.commercial)}
-
-${metric("Visual Identity",domain.metrics.visual)}
-
-</div>
-
-</div>
-
-
-<div class="mt-8">
-
-<div class="text-xs uppercase tracking-widest text-slate-500 mb-3">
-
-Potential Buyers / Applications
-
-</div>
-
-
-<div class="flex flex-wrap gap-2">
-
-${domain.uses.map(use => `
-
-<span class="badge px-3 py-2 rounded-lg text-xs">
-
-${use}
-
-</span>
-
-`).join("")}
-
-</div>
-
-</div>
-
-
-<div class="mt-8 p-5 rounded-2xl border border-emerald-500/20 bg-emerald-500/5">
-
-
-<div class="font-black">
-Interested in ${domain.name}?
-</div>
-
-
-<div class="text-sm text-slate-400 mt-1">
-
-Search the domain on Spaceship or contact the seller to discuss an offer.
-
-</div>
-
-
-<div class="flex flex-col sm:flex-row gap-3 mt-5">
-
-
-<a
-href="${spaceship(domain.name)}"
-target="_blank"
-class="flex-1 text-center bg-emerald-500 text-slate-950 py-3 rounded-xl font-black">
-
-Buy / Search on Spaceship
-
-</a>
-
-
-<a
-href="mailto:cccvcccv3@gmail.com?subject=Offer%20for%20${encodeURIComponent(domain.name)}"
-class="flex-1 text-center bg-slate-800 border border-slate-700 py-3 rounded-xl font-bold">
-
-Make an Offer
-
-</a>
-
-
-</div>
-
-</div>
-
-
-</div>
-
-`;
-
-
-    document.getElementById("domainModal")
-    .classList.remove("hidden");
-
-    document.getElementById("domainModal")
-    .classList.add("flex");
-
-    document.body.style.overflow="hidden";
-
-}
-
-
-function closeDomain(){
-
-    document.getElementById("domainModal")
-    .classList.add("hidden");
-
-    document.getElementById("domainModal")
-    .classList.remove("flex");
-
-    document.body.style.overflow="";
-
-}
-
-
-document.getElementById("domainModal")
-.addEventListener("click",function(event){
-
-    if(event.target === this){
-
-        closeDomain();
-
-    }
-
-});
-
-
-document.addEventListener("keydown",function(event){
-
-    if(event.key === "Escape"){
-
-        closeDomain();
-
-    }
-
-});
-
-
-/* =====================================================
-ANALYZER
-===================================================== */
-
-function analyzeDomain(){
-
-    const input =
-        document.getElementById("analyzerInput")
-        .value
-        .trim();
-
-
-    if(!input){
+        alert("Speech synthesis is not supported by this browser.");
 
         return;
 
     }
 
+    window.speechSynthesis.cancel();
 
-    const letters =
-        getCV(input);
+    const utterance =
+        new SpeechSynthesisUtterance(domain);
 
+    utterance.lang = "en-US";
 
-    if(!letters.length){
+    utterance.rate = .82;
 
-        return;
+    utterance.pitch = 1;
 
-    }
-
-
-    const vowels =
-        letters.filter(
-            x => x.type === "V"
-        ).length;
-
-
-    const consonants =
-        letters.filter(
-            x => x.type === "C"
-        ).length;
-
-
-    let score = 70;
-
-
-    if(letters.length <= 5){
-
-        score += 12;
-
-    }
-
-    else if(letters.length <= 8){
-
-        score += 10;
-
-    }
-
-    else if(letters.length <= 12){
-
-        score += 6;
-
-    }
-
-
-    if(vowels >= 2){
-
-        score += 5;
-
-    }
-
-
-    if(Math.abs(vowels-consonants) <= 4){
-
-        score += 5;
-
-    }
-
-
-    score =
-        Math.min(score,98);
-
-
-    document.getElementById("analysisName")
-        .textContent = input;
-
-
-    document.getElementById("analysisScore")
-        .textContent = score + "/100";
-
-
-    document.getElementById("analysisText")
-        .textContent =
-        score >= 92
-        ? "Excellent pronunciation structure"
-        : score >= 85
-        ? "Strong pronunciation structure"
-        : score >= 78
-        ? "Good pronunciation structure"
-        : "Average pronunciation structure";
-
-
-    document.getElementById("cvOutput")
-        .innerHTML = letters.map(letter => `
-
-<div class="w-11 h-11 rounded-xl border border-slate-800 bg-slate-900 flex items-center justify-center">
-
-<div class="${letter.type === "C" ? "cv-c" : "cv-v"} text-center">
-
-<div class="font-mono font-black text-lg">
-
-${letter.letter.toUpperCase()}
-
-</div>
-
-<div class="text-[9px]">
-
-${letter.type}
-
-</div>
-
-</div>
-
-</div>
-
-`).join("");
-
-
-    document.getElementById("analysisResult")
-        .classList.remove("hidden");
+    window.speechSynthesis.speak(utterance);
 
 }
 
 
-/* =====================================================
-INIT
-===================================================== */
+/* ============================================================
+   LANGUAGE
+============================================================ */
 
-document.getElementById("domainCount")
-.textContent = domains.length;
+function toggleLanguage() {
 
+    const body =
+        document.body;
 
-const avg =
-    Math.round(
-        domains.reduce(
-            (sum,d) => sum+d.score,
-            0
-        ) / domains.length
-    );
+    const isArabic =
+        body.classList.toggle("ar");
 
 
-document.getElementById("averageScore")
-.textContent =
-    avg + "+";
+    if (isArabic) {
 
+        document.documentElement.lang = "ar";
+        document.documentElement.dir = "rtl";
+
+        document.getElementById("languageButton").textContent =
+            "English";
+
+    } else {
+
+        document.documentElement.lang = "en";
+        document.documentElement.dir = "ltr";
+
+        document.getElementById("languageButton").textContent =
+            "العربية";
+
+    }
+
+
+    analyzeDomain();
+
+}
+
+
+/* ============================================================
+   INITIALIZE
+============================================================ */
 
 renderDomains();
+
+analyzeDomain();
 
 </script>
 
