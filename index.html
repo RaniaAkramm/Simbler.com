@@ -49,7 +49,7 @@
 }
 </script>
 
-<!-- Structured data: the domain listings (auto-generated at build time from the same data as the on-page catalog) -->
+<!-- Structured data: the domain listings -->
 <script type="application/ld+json" id="ld-domain-catalog">
 {
   "@context": "https://schema.org",
@@ -665,38 +665,6 @@ body.ar .inline-lang-en {
                         </div>
 
 
-                        <!-- VALUE ESTIMATE -->
-
-                        <div class="mt-6 rounded-xl border border-emerald-800/40 bg-emerald-500/5 p-4">
-
-                            <div class="flex items-center justify-between flex-wrap gap-2">
-
-                                <div>
-                                    <div class="text-xs text-slate-500 uppercase tracking-wider">
-                                        <span class="lang-en">Estimated Brand Value</span>
-                                        <span class="lang-ar">القيمة التقديرية للبراند</span>
-                                    </div>
-                                    <div id="valueRange" class="text-lg font-extrabold text-emerald-400 mt-1">
-                                        $300 – $1,200
-                                    </div>
-                                </div>
-
-                                <div id="valueConfidence"
-                                     class="text-xs px-3 py-1.5 rounded-full border border-emerald-700/50 text-emerald-300 whitespace-nowrap">
-                                    <span class="lang-en">Moderate confidence</span>
-                                    <span class="lang-ar">ثقة متوسطة</span>
-                                </div>
-
-                            </div>
-
-                            <p class="text-xs text-slate-500 mt-2 leading-6">
-                                <span class="lang-en">Estimate only, based on length, pronunciation and TLD — brandable domain sale prices vary widely by buyer fit and are never guaranteed.</span>
-                                <span class="lang-ar">تقدير فقط بناءً على الطول وسهولة النطق والامتداد — أسعار بيع الدومينات البراندابل تتفاوت بشدة حسب المشتري وغير مضمونة.</span>
-                            </p>
-
-                        </div>
-
-
                         <!-- ALTERNATIVES -->
 
                         <div id="alternativesBox" class="mt-4 rounded-xl border border-slate-800 bg-slate-900/50 p-4 hidden">
@@ -969,7 +937,7 @@ body.ar .inline-lang-en {
 
         <!-- TRUST / METHODOLOGY / MONETIZATION -->
 
-        <div class="mt-16 grid md:grid-cols-3 gap-8 pt-12 border-t border-slate-800">
+        <div class="mt-16 grid md:grid-cols-3 gap-8 pt-12 border-t border-slate-800 col-span-full">
 
             <div>
 
@@ -1008,16 +976,13 @@ body.ar .inline-lang-en {
                     <span class="lang-en">
                         Pronunciation and brandability scores are calculated from
                         measurable letter patterns: length, consonant/vowel alternation,
-                        consonant clustering and repeated letters. The estimated value range
-                        adds domain length, TLD and those same signals — it is a heuristic
-                        guide, not an appraisal or a guaranteed sale price.
+                        consonant clustering and repeated letters.
                     </span>
 
                     <span class="lang-ar">
                         تُحسب درجات النطق وقوة البراند من أنماط حروف قابلة للقياس:
                         الطول، تبادل الحروف الساكنة والمتحركة، تكدس الحروف الساكنة،
-                        وتكرار الحروف. القيمة التقديرية تضيف طول الدومين والامتداد —
-                        وهي دليل تقديري وليست تثميناً رسمياً أو سعر بيع مضموناً.
+                        وتكرار الحروف.
                     </span>
 
                 </p>
@@ -1103,7 +1068,6 @@ body.ar .inline-lang-en {
    DOMAIN DATABASE
 ============================================================ */
 
-// Update this date whenever the list below is added to, edited, or pruned.
 const DOMAINS_LAST_REVIEWED = "2026-09-02";
 
 const domains = [
@@ -1589,14 +1553,6 @@ function renderDomains(list = domains) {
         `).join("");
 
 
-        const baseName = domain.name.split(".")[0].toLowerCase().replace(/[^a-z]/g, "");
-        const domainTld = extractTld(domain.name);
-        const domainPattern = [...baseName].map(l => isVowel(l) ? "V" : "C").join("");
-        const domainScore = calculatePronunciationScore(baseName, domainPattern);
-        const domainValue = estimateValueRange(baseName, domainTld, domainScore);
-        const valueRangeText = formatUsd(domainValue.low) + " – " + formatUsd(domainValue.high);
-
-
         return `
 
         <article class="domain-card rounded-2xl border border-slate-800 bg-slate-950/70 p-5 flex flex-col">
@@ -1623,19 +1579,6 @@ function renderDomains(list = domains) {
                             ${domain.type}
                         </div>
 
-                    </div>
-
-                </div>
-
-                <div class="text-right shrink-0">
-
-                    <div class="text-[10px] text-slate-600 uppercase tracking-wider">
-                        <span class="lang-en">Est. value</span>
-                        <span class="lang-ar">القيمة التقديرية</span>
-                    </div>
-
-                    <div class="text-sm font-bold text-emerald-400 whitespace-nowrap">
-                        ${valueRangeText}
                     </div>
 
                 </div>
@@ -1782,70 +1725,6 @@ function isVowel(letter) {
 
 
 /* ============================================================
-   VALUE ESTIMATE (heuristic — not a market price)
-============================================================ */
-
-const TLD_TIER = {
-    com: 1.00, ai: 0.85, io: 0.75, co: 0.60,
-    app: 0.55, dev: 0.45, net: 0.50, org: 0.45,
-    foo: 0.20
-};
-
-function extractTld(value) {
-
-    const cleaned = value
-        .toLowerCase()
-        .trim()
-        .replace(/^https?:\/\//, "")
-        .replace(/^www\./, "")
-        .split("/")[0];
-
-    const parts = cleaned.split(".");
-
-    return parts.length > 1
-        ? parts[parts.length - 1].replace(/[^a-z]/g, "")
-        : "com";
-
-}
-
-function formatUsd(n) {
-    return "$" + Math.round(n).toLocaleString("en-US");
-}
-
-function estimateValueRange(word, tld, score) {
-
-    const tierFactor = TLD_TIER[tld] !== undefined ? TLD_TIER[tld] : 0.30;
-
-    const lengthFactor = Math.max(0.35, 1.6 - (word.length * 0.09));
-
-    const scoreFactor = Math.pow(score / 70, 3);
-
-    let mid = 90 * scoreFactor * lengthFactor * tierFactor;
-
-    mid = Math.max(35, mid);
-
-    const low = Math.round((mid * 0.45) / 10) * 10;
-    const high = Math.round((mid * 2.4) / 10) * 10;
-
-    let confEn, confAr;
-
-    if (score >= 85 && tierFactor >= 0.75) {
-        confEn = "Higher confidence";
-        confAr = "ثقة أعلى";
-    } else if (score >= 65 && tierFactor >= 0.5) {
-        confEn = "Moderate confidence";
-        confAr = "ثقة متوسطة";
-    } else {
-        confEn = "Lower confidence";
-        confAr = "ثقة منخفضة";
-    }
-
-    return { low, high, confEn, confAr };
-
-}
-
-
-/* ============================================================
    ALTERNATIVE NAME SUGGESTIONS
 ============================================================ */
 
@@ -1881,27 +1760,6 @@ function generateAlternatives(word) {
     });
 
     return [...alts].filter(a => a !== word).slice(0, 8);
-
-}
-
-
-function estimateSyllables(word) {
-
-    if (!word) return 0;
-
-    let clean = word.toLowerCase();
-
-    let groups = clean.match(/[aeiouy]+/g);
-
-    let count = groups ? groups.length : 1;
-
-    if (clean.endsWith("e") && count > 1) {
-        count--;
-    }
-
-    if (count < 1) count = 1;
-
-    return count;
 
 }
 
@@ -2152,21 +2010,6 @@ function analyzeDomain() {
     `;
 
 
-    const tld = extractTld(input);
-
-    const value = estimateValueRange(word, tld, score);
-
-    document.getElementById("valueRange").textContent =
-        formatUsd(value.low) + " – " + formatUsd(value.high);
-
-    document.getElementById("valueConfidence").innerHTML = `
-
-        <span class="lang-en">${value.confEn}</span>
-        <span class="lang-ar">${value.confAr}</span>
-
-    `;
-
-
     const alternativesBox = document.getElementById("alternativesBox");
     const alternativesList = document.getElementById("alternativesList");
 
@@ -2203,7 +2046,7 @@ function analyzeDomain() {
                     "px-3 py-1.5 rounded-full border border-emerald-700/40 " +
                     "bg-emerald-500/5 text-sm font-mono text-emerald-300";
 
-                chip.textContent = alt.name + "." + tld;
+                chip.textContent = alt.name + ".com";
 
                 alternativesList.appendChild(chip);
 
@@ -2296,8 +2139,7 @@ function toggleLanguage() {
 
 
 /* ============================================================
-   STRUCTURED DATA (fills the JSON-LD block in <head> from
-   the same domains array rendered on the page)
+   STRUCTURED DATA
 ============================================================ */
 
 function buildDomainCatalogSchema() {
@@ -2308,12 +2150,6 @@ function buildDomainCatalogSchema() {
 
     const itemListElement = domains.map((domain, i) => {
 
-        const baseName = domain.name.split(".")[0].toLowerCase().replace(/[^a-z]/g, "");
-        const domainTld = extractTld(domain.name);
-        const domainPattern = [...baseName].map(l => isVowel(l) ? "V" : "C").join("");
-        const domainScore = calculatePronunciationScore(baseName, domainPattern);
-        const domainValue = estimateValueRange(baseName, domainTld, domainScore);
-
         return {
             "@type": "ListItem",
             "position": i + 1,
@@ -2323,11 +2159,9 @@ function buildDomainCatalogSchema() {
                 "description": domain.description,
                 "category": domain.type,
                 "offers": {
-                    "@type": "AggregateOffer",
-                    "lowPrice": domainValue.low,
-                    "highPrice": domainValue.high,
+                    "@type": "Offer",
+                    "price": "0",
                     "priceCurrency": "USD",
-                    "offerCount": 1,
                     "url": spaceshipLink(domain.name)
                 }
             }
