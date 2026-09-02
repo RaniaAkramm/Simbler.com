@@ -6,6 +6,58 @@
 
 <title>Simbler | Domain Intelligence & Premium Domains</title>
 <meta name="description" content="Simbler analyzes domain pronunciation, C/V structure and showcases premium domains for sale.">
+<link rel="canonical" href="https://simbler.com/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Simbler">
+<meta property="og:title" content="Simbler | Domain Intelligence & Premium Domains">
+<meta property="og:description" content="Analyze domain pronunciation, letter structure and brandability, then browse a curated portfolio of premium domains for sale.">
+<meta property="og:url" content="https://simbler.com/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Simbler | Domain Intelligence & Premium Domains">
+<meta name="twitter:description" content="Analyze domain pronunciation, letter structure and brandability, then browse a curated portfolio of premium domains for sale.">
+
+<!-- Structured data: who we are -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Simbler",
+  "url": "https://simbler.com/",
+  "description": "Simbler is a domain intelligence platform that scores domain pronunciation, letter structure and brandability, and curates a portfolio of premium domains for sale.",
+  "foundingDate": "2026",
+  "sameAs": []
+}
+</script>
+
+<!-- Structured data: the analyzer tool -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Simbler Domain Analyzer",
+  "url": "https://simbler.com/#analyzer",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": "Free tool that scores a domain name's pronunciation ease, consonant/vowel (C/V) structure and brandability.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
+<!-- Structured data: the domain listings (auto-generated at build time from the same data as the on-page catalog) -->
+<script type="application/ld+json" id="ld-domain-catalog">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Simbler Premium Domain Portfolio",
+  "itemListElement": []
+}
+</script>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -612,6 +664,52 @@ body.ar .inline-lang-en {
 
                         </div>
 
+
+                        <!-- VALUE ESTIMATE -->
+
+                        <div class="mt-6 rounded-xl border border-emerald-800/40 bg-emerald-500/5 p-4">
+
+                            <div class="flex items-center justify-between flex-wrap gap-2">
+
+                                <div>
+                                    <div class="text-xs text-slate-500 uppercase tracking-wider">
+                                        <span class="lang-en">Estimated Brand Value</span>
+                                        <span class="lang-ar">القيمة التقديرية للبراند</span>
+                                    </div>
+                                    <div id="valueRange" class="text-lg font-extrabold text-emerald-400 mt-1">
+                                        $300 – $1,200
+                                    </div>
+                                </div>
+
+                                <div id="valueConfidence"
+                                     class="text-xs px-3 py-1.5 rounded-full border border-emerald-700/50 text-emerald-300 whitespace-nowrap">
+                                    <span class="lang-en">Moderate confidence</span>
+                                    <span class="lang-ar">ثقة متوسطة</span>
+                                </div>
+
+                            </div>
+
+                            <p class="text-xs text-slate-500 mt-2 leading-6">
+                                <span class="lang-en">Estimate only, based on length, pronunciation and TLD — brandable domain sale prices vary widely by buyer fit and are never guaranteed.</span>
+                                <span class="lang-ar">تقدير فقط بناءً على الطول وسهولة النطق والامتداد — أسعار بيع الدومينات البراندابل تتفاوت بشدة حسب المشتري وغير مضمونة.</span>
+                            </p>
+
+                        </div>
+
+
+                        <!-- ALTERNATIVES -->
+
+                        <div id="alternativesBox" class="mt-4 rounded-xl border border-slate-800 bg-slate-900/50 p-4 hidden">
+
+                            <div class="text-xs text-slate-500 uppercase tracking-wider mb-2">
+                                <span class="lang-en">Alternative names to consider</span>
+                                <span class="lang-ar">أسماء بديلة مقترحة</span>
+                            </div>
+
+                            <div id="alternativesList" class="flex flex-wrap gap-2"></div>
+
+                        </div>
+
                     </div>
 
                 </div>
@@ -774,6 +872,7 @@ body.ar .inline-lang-en {
 
         </div>
 
+        <div id="domainMeta" class="text-xs text-slate-500 mb-6"></div>
 
         <div id="domainGrid"
              class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -867,6 +966,92 @@ body.ar .inline-lang-en {
 
         </div>
 
+
+        <!-- TRUST / METHODOLOGY / MONETIZATION -->
+
+        <div class="mt-16 grid md:grid-cols-3 gap-8 pt-12 border-t border-slate-800">
+
+            <div>
+
+                <h3 class="text-lg font-bold mb-3">
+                    <span class="lang-en">About Simbler</span>
+                    <span class="lang-ar">عن Simbler</span>
+                </h3>
+
+                <p class="text-sm text-slate-400 leading-7">
+
+                    <span class="lang-en">
+                        Simbler launched in 2026 as a small, independently run project.
+                        It began as an internal tool for evaluating brandable domain names
+                        before buying or listing them, and was opened up as a public analyzer.
+                    </span>
+
+                    <span class="lang-ar">
+                        انطلق Simbler عام 2026 كمشروع مستقل صغير. بدأ كأداة داخلية
+                        لتقييم أسماء الدومينات البراندابل قبل شرائها أو عرضها، ثم
+                        فُتح للاستخدام العام كمحلل مجاني.
+                    </span>
+
+                </p>
+
+            </div>
+
+            <div>
+
+                <h3 class="text-lg font-bold mb-3">
+                    <span class="lang-en">How scoring works</span>
+                    <span class="lang-ar">كيف يعمل التقييم؟</span>
+                </h3>
+
+                <p class="text-sm text-slate-400 leading-7">
+
+                    <span class="lang-en">
+                        Pronunciation and brandability scores are calculated from
+                        measurable letter patterns: length, consonant/vowel alternation,
+                        consonant clustering and repeated letters. The estimated value range
+                        adds domain length, TLD and those same signals — it is a heuristic
+                        guide, not an appraisal or a guaranteed sale price.
+                    </span>
+
+                    <span class="lang-ar">
+                        تُحسب درجات النطق وقوة البراند من أنماط حروف قابلة للقياس:
+                        الطول، تبادل الحروف الساكنة والمتحركة، تكدس الحروف الساكنة،
+                        وتكرار الحروف. القيمة التقديرية تضيف طول الدومين والامتداد —
+                        وهي دليل تقديري وليست تثميناً رسمياً أو سعر بيع مضموناً.
+                    </span>
+
+                </p>
+
+            </div>
+
+            <div>
+
+                <h3 class="text-lg font-bold mb-3">
+                    <span class="lang-en">How Simbler makes money</span>
+                    <span class="lang-ar">كيف يربح Simbler؟</span>
+                </h3>
+
+                <p class="text-sm text-slate-400 leading-7">
+
+                    <span class="lang-en">
+                        The analyzer is free to use. Domains listed in the portfolio are
+                        owned by Simbler's operator; the "Buy" button links out to Spaceship,
+                        a third-party registrar, to complete any purchase. Simbler does not
+                        process payments directly.
+                    </span>
+
+                    <span class="lang-ar">
+                        أداة التحليل مجانية بالكامل. الدومينات المعروضة في المحفظة مملوكة
+                        لمالك Simbler، وزر "شراء" ينقلك إلى Spaceship — وهي مسجل دومينات
+                        خارجي — لإتمام عملية الشراء. Simbler لا يعالج المدفوعات مباشرة.
+                    </span>
+
+                </p>
+
+            </div>
+
+        </div>
+
     </div>
 
 </section>
@@ -917,6 +1102,9 @@ body.ar .inline-lang-en {
 /* ============================================================
    DOMAIN DATABASE
 ============================================================ */
+
+// Update this date whenever the list below is added to, edited, or pruned.
+const DOMAINS_LAST_REVIEWED = "2026-09-02";
 
 const domains = [
 
@@ -1364,6 +1552,18 @@ function renderDomains(list = domains) {
 
     const grid = document.getElementById("domainGrid");
 
+    const meta = document.getElementById("domainMeta");
+
+    if (meta) {
+
+        const isAr = document.body.classList.contains("ar");
+
+        meta.textContent = isAr
+            ? `${domains.length} دومين مدرج · آخر مراجعة للقائمة: ${DOMAINS_LAST_REVIEWED}`
+            : `${domains.length} domains listed · list last reviewed: ${DOMAINS_LAST_REVIEWED}`;
+
+    }
+
     if (!list.length) {
 
         grid.innerHTML = `
@@ -1387,6 +1587,14 @@ function renderDomains(list = domains) {
 
             </li>
         `).join("");
+
+
+        const baseName = domain.name.split(".")[0].toLowerCase().replace(/[^a-z]/g, "");
+        const domainTld = extractTld(domain.name);
+        const domainPattern = [...baseName].map(l => isVowel(l) ? "V" : "C").join("");
+        const domainScore = calculatePronunciationScore(baseName, domainPattern);
+        const domainValue = estimateValueRange(baseName, domainTld, domainScore);
+        const valueRangeText = formatUsd(domainValue.low) + " – " + formatUsd(domainValue.high);
 
 
         return `
@@ -1415,6 +1623,19 @@ function renderDomains(list = domains) {
                             ${domain.type}
                         </div>
 
+                    </div>
+
+                </div>
+
+                <div class="text-right shrink-0">
+
+                    <div class="text-[10px] text-slate-600 uppercase tracking-wider">
+                        <span class="lang-en">Est. value</span>
+                        <span class="lang-ar">القيمة التقديرية</span>
+                    </div>
+
+                    <div class="text-sm font-bold text-emerald-400 whitespace-nowrap">
+                        ${valueRangeText}
                     </div>
 
                 </div>
@@ -1556,6 +1777,110 @@ function cleanDomain(value) {
 function isVowel(letter) {
 
     return vowels.includes(letter);
+
+}
+
+
+/* ============================================================
+   VALUE ESTIMATE (heuristic — not a market price)
+============================================================ */
+
+const TLD_TIER = {
+    com: 1.00, ai: 0.85, io: 0.75, co: 0.60,
+    app: 0.55, dev: 0.45, net: 0.50, org: 0.45,
+    foo: 0.20
+};
+
+function extractTld(value) {
+
+    const cleaned = value
+        .toLowerCase()
+        .trim()
+        .replace(/^https?:\/\//, "")
+        .replace(/^www\./, "")
+        .split("/")[0];
+
+    const parts = cleaned.split(".");
+
+    return parts.length > 1
+        ? parts[parts.length - 1].replace(/[^a-z]/g, "")
+        : "com";
+
+}
+
+function formatUsd(n) {
+    return "$" + Math.round(n).toLocaleString("en-US");
+}
+
+function estimateValueRange(word, tld, score) {
+
+    const tierFactor = TLD_TIER[tld] !== undefined ? TLD_TIER[tld] : 0.30;
+
+    const lengthFactor = Math.max(0.35, 1.6 - (word.length * 0.09));
+
+    const scoreFactor = Math.pow(score / 70, 3);
+
+    let mid = 90 * scoreFactor * lengthFactor * tierFactor;
+
+    mid = Math.max(35, mid);
+
+    const low = Math.round((mid * 0.45) / 10) * 10;
+    const high = Math.round((mid * 2.4) / 10) * 10;
+
+    let confEn, confAr;
+
+    if (score >= 85 && tierFactor >= 0.75) {
+        confEn = "Higher confidence";
+        confAr = "ثقة أعلى";
+    } else if (score >= 65 && tierFactor >= 0.5) {
+        confEn = "Moderate confidence";
+        confAr = "ثقة متوسطة";
+    } else {
+        confEn = "Lower confidence";
+        confAr = "ثقة منخفضة";
+    }
+
+    return { low, high, confEn, confAr };
+
+}
+
+
+/* ============================================================
+   ALTERNATIVE NAME SUGGESTIONS
+============================================================ */
+
+function generateAlternatives(word) {
+
+    const alts = new Set();
+    const vowelList = "aeiou".split("");
+
+    [...word].forEach((letter, i) => {
+
+        if (isVowel(letter)) {
+
+            vowelList.forEach(v => {
+
+                if (v !== letter) {
+                    alts.add(word.slice(0, i) + v + word.slice(i + 1));
+                }
+
+            });
+
+        }
+
+    });
+
+    const suffixes = ["ly", "io", "hq", "base"];
+
+    suffixes.forEach(suf => {
+
+        if (!word.endsWith(suf)) {
+            alts.add(word + suf);
+        }
+
+    });
+
+    return [...alts].filter(a => a !== word).slice(0, 8);
 
 }
 
@@ -1826,6 +2151,76 @@ function analyzeDomain() {
 
     `;
 
+
+    const tld = extractTld(input);
+
+    const value = estimateValueRange(word, tld, score);
+
+    document.getElementById("valueRange").textContent =
+        formatUsd(value.low) + " – " + formatUsd(value.high);
+
+    document.getElementById("valueConfidence").innerHTML = `
+
+        <span class="lang-en">${value.confEn}</span>
+        <span class="lang-ar">${value.confAr}</span>
+
+    `;
+
+
+    const alternativesBox = document.getElementById("alternativesBox");
+    const alternativesList = document.getElementById("alternativesList");
+
+    alternativesList.innerHTML = "";
+
+    if (score < 82) {
+
+        const alts = generateAlternatives(word)
+            .map(alt => {
+
+                const altPattern = [...alt]
+                    .map(l => isVowel(l) ? "V" : "C")
+                    .join("");
+
+                return {
+                    name: alt,
+                    score: calculatePronunciationScore(alt, altPattern)
+                };
+
+            })
+            .filter(alt => alt.score > score)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 6);
+
+        if (alts.length) {
+
+            alternativesBox.classList.remove("hidden");
+
+            alts.forEach(alt => {
+
+                const chip = document.createElement("span");
+
+                chip.className =
+                    "px-3 py-1.5 rounded-full border border-emerald-700/40 " +
+                    "bg-emerald-500/5 text-sm font-mono text-emerald-300";
+
+                chip.textContent = alt.name + "." + tld;
+
+                alternativesList.appendChild(chip);
+
+            });
+
+        } else {
+
+            alternativesBox.classList.add("hidden");
+
+        }
+
+    } else {
+
+        alternativesBox.classList.add("hidden");
+
+    }
+
 }
 
 
@@ -1895,6 +2290,60 @@ function toggleLanguage() {
 
 
     analyzeDomain();
+    renderDomains();
+
+}
+
+
+/* ============================================================
+   STRUCTURED DATA (fills the JSON-LD block in <head> from
+   the same domains array rendered on the page)
+============================================================ */
+
+function buildDomainCatalogSchema() {
+
+    const tag = document.getElementById("ld-domain-catalog");
+
+    if (!tag) return;
+
+    const itemListElement = domains.map((domain, i) => {
+
+        const baseName = domain.name.split(".")[0].toLowerCase().replace(/[^a-z]/g, "");
+        const domainTld = extractTld(domain.name);
+        const domainPattern = [...baseName].map(l => isVowel(l) ? "V" : "C").join("");
+        const domainScore = calculatePronunciationScore(baseName, domainPattern);
+        const domainValue = estimateValueRange(baseName, domainTld, domainScore);
+
+        return {
+            "@type": "ListItem",
+            "position": i + 1,
+            "item": {
+                "@type": "Product",
+                "name": domain.name,
+                "description": domain.description,
+                "category": domain.type,
+                "offers": {
+                    "@type": "AggregateOffer",
+                    "lowPrice": domainValue.low,
+                    "highPrice": domainValue.high,
+                    "priceCurrency": "USD",
+                    "offerCount": 1,
+                    "url": spaceshipLink(domain.name)
+                }
+            }
+        };
+
+    });
+
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Simbler Premium Domain Portfolio",
+        "numberOfItems": domains.length,
+        "itemListElement": itemListElement
+    };
+
+    tag.textContent = JSON.stringify(schema);
 
 }
 
@@ -1906,6 +2355,8 @@ function toggleLanguage() {
 renderDomains();
 
 analyzeDomain();
+
+buildDomainCatalogSchema();
 
 </script>
 
